@@ -1,0 +1,2450 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avon - Client Testimonials</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+
+    <style>
+      #mobile-menu {
+        transition:
+          max-height 0.4s ease-in-out,
+          opacity 0.3s ease-in-out;
+      }
+      .menu-closed {
+        max-height: 0;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .menu-open {
+        max-height: 600px;
+        opacity: 1;
+        pointer-events: auto;
+      }
+    </style>
+
+    <style>
+      /* ===== Avon shared enhancements ===== */
+      html {
+        scroll-behavior: smooth;
+      }
+      ::selection {
+        background: #0f3a2a;
+        color: #fff;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #faf6ee;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #c9bfa0;
+        border-radius: 999px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #0f3a2a;
+      }
+
+      header.scrolled {
+        box-shadow: 0 10px 30px rgba(15, 58, 42, 0.09);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-scale {
+        opacity: 0;
+        transform: scale(0.94);
+        transition:
+          opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-scale.is-visible {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .reveal-down {
+        opacity: 0;
+        transform: translateY(-46px);
+        transition:
+          opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-down.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(70px);
+        transition:
+          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal-right.is-visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      @keyframes waPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55);
+        }
+        70% {
+          box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+        }
+      }
+      .wa-pulse {
+        animation: waPulse 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes floatSlow {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+      .float-slow {
+        animation: floatSlow 5s ease-in-out infinite;
+      }
+
+      .btn-glow {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-glow::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+        transform: translateX(-120%);
+        transition: transform 0.6s ease;
+      }
+      .btn-glow:hover::after {
+        transform: translateX(120%);
+      }
+    </style>
+
+    <style>
+      /* ===== Avon share system ===== */
+      .share-pop {
+        position: fixed;
+        z-index: 9999;
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 20px 55px rgba(15, 58, 42, 0.2);
+        border: 1px solid rgba(15, 58, 42, 0.08);
+        padding: 10px;
+        display: flex;
+        gap: 8px;
+        opacity: 0;
+        transform: translateY(8px) scale(0.94);
+        transform-origin: bottom center;
+        transition:
+          opacity 0.18s ease,
+          transform 0.18s ease;
+        pointer-events: none;
+      }
+      .share-pop.open {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+      .share-pop a,
+      .share-pop button {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        border: none;
+        cursor: pointer;
+      }
+      .share-pop a:hover,
+      .share-pop button:hover {
+        transform: translateY(-3px) scale(1.08);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+      }
+      .share-toast {
+        position: fixed;
+        bottom: 28px;
+        left: 50%;
+        transform: translateX(-50%) translateY(16px);
+        background: #0f3a2a;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 600;
+        opacity: 0;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
+        z-index: 10000;
+        pointer-events: none;
+        box-shadow: 0 10px 30px rgba(15, 58, 42, 0.35);
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .share-toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    </style>
+  </head>
+
+  <body
+    class="font-sans antialiased text-slate-800 bg-white font-['Plus_Jakarta_Sans']"
+  >
+    <!-- nav bar -->
+    <!-- ========================================== -->
+    <!-- COMPLETE NAVBAR (DESKTOP & MOBILE) -->
+
+    <header
+      class="w-full border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-lg transition-all duration-300"
+    >
+      <div class="container mx-auto px-4 max-w-7xl">
+        <div class="flex items-center justify-between h-20">
+          <!-- 1. CORRECTED LOGO: Flower SVG instead of Dollar Sign -->
+          <a href="index.html" class="flex items-center gap-2">
+            <div
+              class="w-10 h-10 bg-[#0F3A2A] rounded-full flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-flower2 w-5 h-5 text-white"
+              >
+                <path
+                  d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1"
+                ></path>
+                <circle cx="12" cy="8" r="2"></circle>
+                <path d="M12 10v12"></path>
+                <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"></path>
+                <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"></path>
+              </svg>
+            </div>
+            <span
+              class="text-2xl font-bold text-[#0F3A2A]"
+              style="font-family: &quot;Playfair Display&quot;, serif"
+              >Avon</span
+            >
+          </a>
+
+          <!-- 2. Desktop Menu (Testimonials Active, Home Inactive) -->
+          <nav
+            class="hidden lg:flex items-center gap-2 text-[15px] font-medium"
+          >
+            <a
+              href="index.html"
+              class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all"
+            >
+              Home
+            </a>
+            <a
+              href="Fresh Flower.html"
+              class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all"
+            >
+              Fresh Flowers
+            </a>
+            <a
+              href="Gift occasion.html"
+              class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all"
+            >
+              Gift Occasions
+            </a>
+            <a
+              href="Event.html"
+              class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all"
+            >
+              Events
+            </a>
+            <a
+              href="Packaging.html"
+              class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all"
+            >
+              Packaging
+            </a>
+
+            <!-- ACTIVE PAGE: Dark Green Pill -->
+            <a
+              href="Testimonials.html"
+              class="bg-[#0F3A2A] text-white px-6 py-2.5 rounded-full transition-all"
+            >
+              Testimonials
+            </a>
+          </nav>
+
+          <!-- 3. Desktop CTA Button & Mobile Toggle Button -->
+          <div class="flex items-center gap-4">
+            <!-- Desktop WhatsApp Button -->
+            <a
+              href="contact.html"
+              class="hidden lg:flex items-center gap-2 bg-[#25D366] text-white px-6 py-2.5 rounded-full font-semibold transition-all duration-300 shadow-[0_8px_16px_rgba(37,211,102,0.25)] hover:shadow-[0_10px_20px_rgba(37,211,102,0.4)] hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"
+                ></path>
+              </svg>
+              Chat with Us
+            </a>
+
+            <!-- Mobile Hamburger / Close Button -->
+            <button
+              id="mobile-menu-btn"
+              class="lg:hidden p-2 text-[#0F3A2A] hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              <svg
+                id="icon-open"
+                class="w-7 h-7 block"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+              <svg
+                id="icon-close"
+                class="w-7 h-7 hidden"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Mobile Dropdown Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden absolute top-[80px] left-0 w-full bg-[#FDFDFC] border-b border-slate-200 shadow-2xl lg:hidden"
+      >
+        <nav class="p-6 flex flex-col gap-1 text-[15px]">
+          <!-- INACTIVE Home (Mobile) -->
+          <a
+            href="index.html"
+            class="block w-full text-slate-700 font-medium px-4 py-3 hover:bg-slate-100 rounded-xl mb-2 transition-colors"
+          >
+            Home
+          </a>
+
+          <!-- Cleaned up Mobile Icons -->
+          <a
+            href="Fresh Flower.html"
+            class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <svg
+              class="w-5 h-5 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 2v20" />
+              <path d="M12 12c-2 0-3-2-3-4s1-4 3-4 3 2 3 4-1 4-3 4z" />
+              <path d="M12 12c0 2-2 3-4 3s-4-1-4-3 2-3 4-3 4 1 4 3z" />
+            </svg>
+            Fresh Flowers
+          </a>
+
+          <a
+            href="Gift occasion.html"
+            class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <svg
+              class="w-5 h-5 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="3" y="8" width="18" height="4" rx="1" />
+              <path d="M12 8v13" />
+              <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+              <path
+                d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"
+              />
+            </svg>
+            Gift Occasions
+          </a>
+
+          <a
+            href="Event.html"
+            class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <svg
+              class="w-5 h-5 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M5.8 11.3 2 22l10.7-3.79" />
+              <path d="M4 3h.01" />
+              <path d="M22 8h.01" />
+              <path d="M15 2h.01" />
+              <path d="M22 20h.01" />
+              <path
+                d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12v0c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"
+              />
+              <path
+                d="m22 13-.82-.33c-.86-.39-1.87.15-2.15 1.07v0c-.28.9-1.25 1.34-2.1 1.05l-.38-.13c-.84-.28-1.74.2-1.97 1.05L14 16"
+              />
+              <path
+                d="m11 6 .33.82c.39.86-.15 1.87-1.07 2.15v0c-.9.28-1.34 1.25-1.05 2.1l.13.38c.28.84-.2 1.74-1.05 1.97L8 14"
+              />
+            </svg>
+            Events
+          </a>
+
+          <a
+            href="Packaging.html"
+            class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors"
+          >
+            <svg
+              class="w-5 h-5 text-slate-400"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"
+              />
+              <path d="m3.3 7 8.7 5 8.7-5" />
+              <path d="M12 22V12" />
+            </svg>
+            Packaging
+          </a>
+
+          <!-- ACTIVE Testimonials (Mobile) -->
+          <a
+            href="Testimonials.html"
+            class="flex items-center gap-4 px-4 py-3 bg-[#0F3A2A] text-white font-medium rounded-xl transition-colors mb-4"
+          >
+            <svg
+              class="w-5 h-5 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+              />
+            </svg>
+            Testimonials
+          </a>
+
+          <!-- Mobile CTA -->
+          <a
+            href="contact.html"
+            class="flex items-center justify-center gap-2 w-full rounded-xl bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#20BD5A] shadow-md"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+            </svg>
+            <span>Chat on WhatsApp</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- hero of testiominal -->
+    <section
+      class="relative pt-32 pb-20 px-4 flex flex-col items-center justify-center overflow-hidden bg-[#F6F4EF]"
+    >
+      <div class="absolute inset-0 z-0">
+        <img
+          src="assets/service1.webp"
+          class="w-full h-full object-cover object-center opacity-15 mix-blend-multiply"
+          alt="Avon Gifts Background"
+        />
+      </div>
+
+      <div
+        class="absolute inset-0 z-0 bg-linear-to-b from-white/80 via-white/40 to-[#F6F4EF]"
+      ></div>
+
+      <div class="relative z-10 w-full flex flex-col items-center text-center">
+        <div
+          class="reveal-scale inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-slate-200 shadow-sm mb-6"
+        >
+          <svg
+            class="w-3.5 h-3.5 text-[#E1306C]"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+            ></path>
+          </svg>
+          <span
+            class="text-[13px] font-medium text-slate-700"
+            style="font-family: &quot;DM Sans&quot;, sans-serif"
+          >
+            What Our Clients Say
+          </span>
+        </div>
+
+        <h1
+          class="reveal text-5xl md:text-[56px] font-bold text-[#0F3A2A] mb-5 tracking-tight leading-tight"
+          style="font-family: &quot;Playfair Display&quot;, serif"
+        >
+          Client Testimonials
+        </h1>
+        <div class="w-full max-w-2xl mx-auto flex flex-col">
+          <p
+            class="text-lg text-slate-600 mb-8 leading-relaxed text-center"
+            style="font-family: &quot;DM Sans&quot;, sans-serif"
+          >
+            Real stories from real clients who trusted us with their most
+            precious moments.
+          </p>
+
+          <div class="flex items-center justify-start gap-2.5 px-4 sm:px-0">
+            <div
+              class="w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer shadow-sm hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+            >
+              <img
+                src="assets/social.png"
+                class="h-5 w-5 object-contain"
+                alt="WhatsApp"
+              />
+            </div>
+
+            <div
+              class="w-9 h-9 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer shadow-sm hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+            >
+              <img
+                src="assets/facebook.png"
+                class="h-5 w-5 object-contain"
+                alt="Facebook"
+              />
+            </div>
+
+            <div
+              class="w-9 h-9 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer shadow-sm hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+            >
+              <img
+                src="assets/icon-twitter.svg"
+                class="h-4 w-4 object-contain brightness-0 invert"
+                alt="Twitter"
+              />
+            </div>
+
+            <div
+              class="w-9 h-9 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer shadow-sm hover:scale-110 hover:-translate-y-1 transition-all duration-300"
+            >
+              <img
+                src="assets/icon-instagram.svg"
+                class="h-4 w-4 object-contain brightness-0 invert"
+                alt="Instagram"
+              />
+            </div>
+
+            <div
+              class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer shadow-sm hover:scale-110 hover:-translate-y-1 transition-all duration-300 border border-slate-200/50"
+            >
+              <img
+                src="assets/share.png"
+                class="h-4 w-4 object-contain opacity-50"
+                alt="Share"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- client num and deliver data num -->
+    <section
+      class="relative bg-gradient-to-r from-[#efe5ce] via-[#f3ead6] to-[#efe5ce] border-y border-[#EAE6DF] py-12 overflow-hidden"
+    >
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-[#EAE6DF]/50"
+        >
+          <div class="reveal">
+            <h3
+              class="text-4xl font-bold text-[#0F3A2A] mb-1 stat-num"
+              data-count="2500"
+              data-suffix="+"
+              style="font-family: &quot;Playfair Display&quot;, serif"
+            >
+              0+
+            </h3>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-slate-500"
+            >
+              Happy Clients
+            </p>
+          </div>
+          <div class="reveal" style="transition-delay: 80ms">
+            <h3
+              class="text-4xl font-bold text-[#0F3A2A] mb-1 stat-num"
+              data-count="800"
+              data-suffix="+"
+              style="font-family: &quot;Playfair Display&quot;, serif"
+            >
+              0+
+            </h3>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-slate-500"
+            >
+              Events Decorated
+            </p>
+          </div>
+          <div class="reveal" style="transition-delay: 160ms">
+            <h3
+              class="text-4xl font-bold text-[#0F3A2A] mb-1 stat-num"
+              data-count="10000"
+              data-suffix="+"
+              style="font-family: &quot;Playfair Display&quot;, serif"
+            >
+              0+
+            </h3>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-slate-500"
+            >
+              Gifts Delivered
+            </p>
+          </div>
+          <div class="reveal" style="transition-delay: 240ms">
+            <h3
+              class="text-4xl font-bold text-[#0F3A2A] mb-1 stat-num"
+              data-count="1200"
+              data-suffix="+"
+              style="font-family: &quot;Playfair Display&quot;, serif"
+            >
+              0+
+            </h3>
+            <p
+              class="text-xs font-semibold uppercase tracking-wider text-slate-500"
+            >
+              5-Star Reviews
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      (function () {
+        var nums = document.querySelectorAll(".stat-num");
+        if (!nums.length) return;
+        function setFinal(el) {
+          var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+          var suffix = el.getAttribute("data-suffix") || "";
+          el.textContent = target.toLocaleString() + suffix;
+        }
+        if (!("IntersectionObserver" in window)) {
+          nums.forEach(setFinal);
+          return;
+        }
+        var animated = new WeakSet();
+        function animateCount(el) {
+          var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+          var suffix = el.getAttribute("data-suffix") || "";
+          var duration = 1400;
+          var start = null;
+          function step(ts) {
+            if (!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var value = Math.floor(eased * target);
+            el.textContent = value.toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target.toLocaleString() + suffix;
+          }
+          requestAnimationFrame(step);
+        }
+        var statIo = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting && !animated.has(e.target)) {
+                animated.add(e.target);
+                animateCount(e.target);
+              }
+            });
+          },
+          { threshold: 0.4 },
+        );
+        nums.forEach(function (el) {
+          statIo.observe(el);
+        });
+      })();
+    </script>
+    <!-- revieew cards of client -->
+    <section class="bg-[#FAFAF8] py-16 md:py-24 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!--card1-->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p class="text-slate-600 text-[15px] leading-relaxed mb-6 grow">
+              "Avon transformed our wedding venue into a dream! The floral
+              arrangements were breathtaking, and every detail was handled with
+              such care. Our guests couldn't stop complimenting the decor. Truly
+              the best decision we made for our big day."
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+              >
+                Wedding Decoration
+              </span>
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                AK
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Ayesha Khan
+                </h4>
+                <p class="text-xs text-slate-400">Lahore</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- CARD 2: mariam --->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "We ordered 50 Nikah gift boxes for our guests and each one was
+              perfectly crafted. The attention to detail, the quality of
+              materials, and the elegant presentation made our guests feel truly
+              special. Highly recommended!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Nikah Gift Boxes</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                SM
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">Sana Malik</h4>
+                <p class="text-xs text-slate-400">Faisalabad</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Card 3: -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "Ordered a newborn gift basket for my best friend and it was
+              adorable! Beautifully wrapped with baby essentials, soft toys, and
+              flowers. She absolutely loved it. The same-day delivery was a
+              lifesaver."
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Newborn Baby Gift</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                MI
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Mariam Iqbal
+                </h4>
+                <p class="text-xs text-slate-400">Karachi</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--Card 4:ahmad-->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "I ordered a Hajj Mubarak hamper for my parents and it exceeded
+              all expectations. The packaging was elegant, the items were
+              premium quality, and it was delivered right on time. My parents
+              were so touched. Thank you Avon!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Hajj Welcome Gift</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                AR
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">Ahmed Raza</h4>
+                <p class="text-xs text-slate-400">Islamabad</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "Our company needed premium gift packaging for 100+ client gifts
+              during Eid. Avon delivered on time with impeccable quality. The
+              branded packaging elevated our corporate gifting game entirely.
+              Our clients loved it!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Corporate Gift Packaging</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                HS
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Hassan Sheikh
+                </h4>
+                <p class="text-xs text-slate-400">Multan</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "We celebrated our son's Hifz completion and Avon made the event
+              decoration truly memorable. The green and gold theme was elegant
+              and respectful. The gift hampers for guests were also beautifully
+              done. Jazak'Allah!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Hifz-e-Quran Celebration</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                TM
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Tariq Mahmood
+                </h4>
+                <p class="text-xs text-slate-400">Peshawar</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 7: Fatima Noor -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "The bouquet I ordered for my sister's birthday was absolutely
+              stunning. Fresh, vibrant, and beautifully arranged. She was over
+              the moon! Will definitely be ordering again for every special
+              occasion."
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Birthday Flowers</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                FN
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Fatima Noor
+                </h4>
+                <p class="text-xs text-slate-400">Karachi</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 8: Zainab Tariq -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "I was abroad and wanted to surprise my mother on Mother's Day.
+              Avon made it happen beautifully — fresh flowers, chocolates, and a
+              heartfelt card delivered to her doorstep. She called me in tears
+              of joy. Priceless!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Mother's Day Gift</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                ZT
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Zainab Tariq
+                </h4>
+                <p class="text-xs text-slate-400">Lahore</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 9: Nadia Pervez -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "My husband surprised me with an anniversary room decoration by
+              Avon and I was speechless! Rose petals, candles, balloons, and
+              fairy lights — it was like a scene from a movie. Best anniversary
+              ever!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Anniversary Room Decoration</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                NP
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Nadia Pervez
+                </h4>
+                <p class="text-xs text-slate-400">Sialkot</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 10: Usman Ali -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "From the stage decoration to the car setup, Avon handled our
+              engagement event flawlessly. The team was professional, creative,
+              and went above and beyond. The photos came out amazing thanks to
+              their beautiful setups."
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Engagement Event</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                UA
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">Usman Ali</h4>
+                <p class="text-xs text-slate-400">Rawalpindi</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 11: Bilal Hussain -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "The Mehndi decoration was absolutely vibrant and colorful —
+              exactly what we envisioned! The team set up everything on time and
+              the marigold arrangements were gorgeous. Everyone asked who did
+              the decor. Thank you Avon!"
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Mehndi Event</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                BH
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Bilal Hussain
+                </h4>
+                <p class="text-xs text-slate-400">Islamabad</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 12: Imran Qureshi -->
+          <div
+            class="reveal group bg-white border border-slate-100 rounded-2xl p-5 pb-4 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 hover:border-[#0F3A2A]/15 transition-all duration-400 flex flex-col justify-between"
+          >
+            <div class="mb-4">
+              <svg
+                class="w-9 h-9 text-[#0F3A2A]/25 group-hover:text-[#0F3A2A]/50 group-hover:scale-110 transition-all duration-300"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8 15A7 7 0 1 0 8 1v14zm0 0a7 7 0 0 0-7 7v1h7v-8zm15 0a7 7 0 1 0 0-14v14zm0 0a7 7 0 0 0-7 7v1h7v-8z"
+                ></path>
+              </svg>
+            </div>
+            <div class="flex items-center gap-1 mb-4 text-[#FABB05]">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                />
+              </svg>
+            </div>
+            <p
+              class="text-slate-600 text-[15px] leading-relaxed mb-6 flex-grow"
+            >
+              "Sent a graduation gift basket to my niece and she was thrilled!
+              The combination of a watch, chocolates, and flowers in premium
+              packaging made it feel so special. Avon knows how to make moments
+              count."
+            </p>
+            <div class="mb-6">
+              <span
+                class="inline-block px-3 py-1 bg-slate-100 border border-slate-100 text-slate-600 rounded-lg text-xs font-semibold tracking-wide"
+                >Graduation Gift</span
+              >
+            </div>
+            <div class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-full bg-[#0F3A2A] text-white flex items-center justify-center font-bold text-sm shrink-0"
+              >
+                IQ
+              </div>
+              <div>
+                <h4 class="font-bold text-[#0F3A2A] text-[15px]">
+                  Imran Qureshi
+                </h4>
+                <p class="text-xs text-slate-400">Gujranwala</p>
+              </div>
+            </div>
+            <div class="border-t border-slate-100 pt-5">
+              <div class="flex items-center gap-2">
+                <div
+                  class="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/social.png"
+                    class="h-5 w-5 object-contain"
+                    alt="WhatsApp"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/facebook.png"
+                    class="h-5 w-5 object-contain"
+                    alt="Facebook"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-twitter.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Twitter"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/icon-instagram.svg"
+                    class="h-4 w-4 object-contain brightness-0 invert"
+                    alt="Instagram"
+                  />
+                </div>
+                <div
+                  class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer hover:scale-110 hover:-translate-y-1 transition-all duration-200"
+                >
+                  <img
+                    src="assets/share.png"
+                    class="h-4 w-4 object-contain opacity-60"
+                    alt="Share"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- cta -->
+    <section class="bg-[#F5F2EB] py-20 px-4 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-[#0F3A2A] mb-4 font-serif text-foreground"
+          style="font-family: &quot;Playfair Display&quot;, serif"
+        >
+          Ready to Create Your Own Story?
+        </h2>
+
+        <p
+          class="text-slate-500 text-lg leading-7 mb-8 max-w-xl mx-auto"
+          style="font-family: &quot;DM Sans&quot;, sans-serif"
+        >
+          Join thousands of happy clients who trust Avon for their special
+          moments. Let us make your next occasion unforgettable.
+        </p>
+
+        <a
+          href="#"
+          class="inline-flex items-center gap-2.5 bg-[#0F3A2A] text-white px-8 py-3.5 rounded-full text-[15px] font-semibold shadow-[0_8px_20px_rgba(15,58,42,0.2)] hover:shadow-[0_10px_25px_rgba(15,58,42,0.3)] hover:-translate-y-1 transition-all duration-300"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+            ></path>
+          </svg>
+          Get Started on WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a
+      href="https://wa.me/YOUR_PHONE_NUMBER"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 z-50 group"
+    >
+      <!-- The Green Button -->
+      <div
+        class="w-14 h-14 bg-gradient-to-br from-[#25D366] to-[#128C7E] hover:from-[#20BD5A] hover:to-[#0f7566] rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] transition-all duration-300 group-hover:scale-110 wa-pulse"
+      >
+        <!-- WhatsApp Icon -->
+        <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"
+          />
+        </svg>
+
+        <!-- The Red Notification Dot -->
+        <span
+          class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"
+        ></span>
+      </div>
+    </a>
+
+    <!-- footer -->
+    <footer class="bg-[#123C2C] py-20 text-white">
+      <!-- Container -->
+      <div class="container mx-auto px-6">
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <!-- ================= Column 1 ================= -->
+          <div>
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+              <!-- Logo Icon -->
+              <div
+                class="bg-[#3e7f5522] h-8 w-8 flex items-center justify-center rounded-full"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-flower2 w-5 h-5"
+                >
+                  <path
+                    d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1"
+                  ></path>
+                  <circle cx="12" cy="8" r="2"></circle>
+                  <path d="M12 10v12"></path>
+                  <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"></path>
+                  <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"></path>
+                </svg>
+              </div>
+
+              <!-- Logo Text -->
+              <h2 class="text-2xl font-bold font-serif">Avon</h2>
+            </div>
+
+            <!-- Description -->
+            <div class="mt-8 text-sm text-white/70">
+              <p>
+                Crafting moments of joy through fresh flowers, thoughtful gifts,
+                and unforgettable event experiences.
+              </p>
+            </div>
+          </div>
+
+          <!-- ================= Column 2 ================= -->
+          <div>
+            <!-- Heading -->
+            <h3 class="text-lg font-semibold font-serif">Services</h3>
+
+            <!-- Navigation -->
+            <ul class="mt-8 space-y-3 text-sm text-white/70">
+              <li class="hover:text-white">
+                <a href="">Fresh Flowers</a>
+              </li>
+
+              <li class="hover:text-white transition-colors">
+                <a href="">Gift Occasions</a>
+              </li>
+
+              <li class="hover:text-white transition-colors">
+                <a href="">Event Decoration</a>
+              </li>
+
+              <li class="hover:text-white transition-colors">
+                <a href="">Gift Packaging</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- ================= Column 3 ================= -->
+          <div>
+            <h3 class="font-serif text-lg font-semibold">Company</h3>
+
+            <ul class="mt-8 space-y-3 text-sm text-white/70">
+              <li class="hover:text-white transition-colors cursor-pointer">
+                <a href="">About Us</a>
+              </li>
+              <li class="hover:text-white transition-colors cursor-pointer">
+                <a href="">Contact</a>
+              </li>
+              <li class="hover:text-white transition-colors cursor-pointer">
+                <a href="">FAQ</a>
+              </li>
+              <li class="hover:text-white transition-colors cursor-pointer">
+                <a href="">Terms & Conditions</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-serif text-lg font-semibold">Get in Touch</h3>
+
+            <div class="mt-8 space-y-3 text-sm text-white/70">
+              <p>info@avongifts.com</p>
+              <p>+92 300 1234567</p>
+              <p>Mon - Sat: 9AM - 9PM</p>
+            </div>
+
+            <div class="mt-10">
+              <a
+                href=""
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors"
+              >
+                <span>
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"
+                    ></path>
+                  </svg>
+                </span>
+                <span>WhatsApp Us</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-12 pt-8 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/70"
+        >
+          <div>© 2024 Avon Gifts & Events. All rights reserved.</div>
+
+          <div>Delivering happiness, one gift at a time.</div>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <!-- Link to external js for nav bar  -->
+
+  <script src="js/navbar.js"></script>
+  <script src="js/share.js" defer></script>
+</html>

@@ -1,0 +1,1069 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gift Occasions | Avon Gifts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+       <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+
+
+    <style>
+      /* ===== Avon shared enhancements ===== */
+      html { scroll-behavior: smooth; }
+      ::selection { background: #0F3A2A; color: #fff; }
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: #FAF6EE; }
+      ::-webkit-scrollbar-thumb { background: #C9BFA0; border-radius: 999px; }
+      ::-webkit-scrollbar-thumb:hover { background: #0F3A2A; }
+
+      header.scrolled { box-shadow: 0 10px 30px rgba(15,58,42,0.09); }
+
+      .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+      .reveal.is-visible { opacity: 1; transform: translateY(0); }
+      .reveal-scale { opacity: 0; transform: scale(.94); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+      .reveal-scale.is-visible { opacity: 1; transform: scale(1); }
+      .reveal-down { opacity: 0; transform: translateY(-46px); transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1); }
+      .reveal-down.is-visible { opacity: 1; transform: translateY(0); }
+      .reveal-right { opacity: 0; transform: translateX(70px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+      .reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+      @keyframes waPulse {
+        0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+        70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+        100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+      }
+      .wa-pulse { animation: waPulse 2.4s cubic-bezier(.4,0,.6,1) infinite; }
+
+      @keyframes floatSlow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .float-slow { animation: floatSlow 5s ease-in-out infinite; }
+
+      .btn-glow { position: relative; overflow: hidden; }
+      .btn-glow::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+        transform: translateX(-120%); transition: transform .6s ease;
+      }
+      .btn-glow:hover::after { transform: translateX(120%); }
+    </style>
+
+  
+    <style>
+      /* ===== Avon share system ===== */
+      .share-pop {
+        position: fixed; z-index: 9999; background: #fff; border-radius: 18px;
+        box-shadow: 0 20px 55px rgba(15,58,42,0.2); border: 1px solid rgba(15,58,42,0.08);
+        padding: 10px; display: flex; gap: 8px; opacity: 0;
+        transform: translateY(8px) scale(.94); transform-origin: bottom center;
+        transition: opacity .18s ease, transform .18s ease; pointer-events: none;
+      }
+      .share-pop.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+      .share-pop a, .share-pop button {
+        width: 42px; height: 42px; border-radius: 12px; display: flex;
+        align-items: center; justify-content: center; transition: transform .2s ease, box-shadow .2s ease;
+        border: none; cursor: pointer;
+      }
+      .share-pop a:hover, .share-pop button:hover { transform: translateY(-3px) scale(1.08); box-shadow: 0 8px 16px rgba(0,0,0,.12); }
+      .share-toast {
+        position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px);
+        background: #0F3A2A; color: #fff; padding: 10px 20px; border-radius: 999px;
+        font-size: 13px; font-weight: 600; opacity: 0; transition: opacity .25s ease, transform .25s ease;
+        z-index: 10000; pointer-events: none; box-shadow: 0 10px 30px rgba(15,58,42,.35);
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .share-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+
+  </head>
+<body>
+       <!-- COMPLETE NAVBAR (DESKTOP & MOBILE) -->
+    
+   
+<header class="w-full border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-lg transition-all duration-300">
+  <div class="container mx-auto px-4 max-w-7xl">
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- 1. CORRECTED LOGO: Flower SVG instead of Dollar Sign -->
+      <a href="index.html" class="flex items-center gap-2">
+        <div class="w-10 h-10 bg-[#0F3A2A] rounded-full flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-flower2 w-5 h-5 text-white">
+    <path d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1"></path>
+    <circle cx="12" cy="8" r="2"></circle>
+    <path d="M12 10v12"></path>
+    <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"></path>
+    <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"></path>
+  </svg>
+        </div>
+        <span class="text-2xl font-bold text-[#0F3A2A]" style="font-family: 'Playfair Display', serif;">Avon</span>
+      </a>
+
+      <!-- 2. Desktop Menu (Testimonials Active, Home Inactive) -->
+      <nav class="hidden lg:flex items-center gap-2 text-[15px] font-medium">
+  
+
+  <a href="index.html" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+  Home
+</a>
+  
+  <a href="Fresh Flower.html" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+    Fresh Flowers
+  </a>
+
+    <!-- ACTIVE PAGE: Dark Green Pill -->
+ <a href="Gift occasion.html" class="bg-[#0F3A2A] text-white px-6 py-2.5 rounded-full transition-all">
+  Gift Occasions
+</a>
+  
+  <a href="Event.html" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+    Events
+  </a>
+  
+  <a href="Packaging.html" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+    Packaging
+  </a>
+  
+ 
+  <a href="Testimonials.html" class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+    Testimonials
+  </a>
+  
+</nav>
+
+      <!-- 3. Desktop CTA Button & Mobile Toggle Button -->
+      <div class="flex items-center gap-4">
+        
+        <!-- Desktop WhatsApp Button -->
+        <a href="contact.html" class="hidden lg:flex items-center gap-2 bg-[#25D366] text-white px-6 py-2.5 rounded-full font-semibold transition-all duration-300 shadow-[0_8px_16px_rgba(37,211,102,0.25)] hover:shadow-[0_10px_20px_rgba(37,211,102,0.4)] hover:-translate-y-0.5">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg>
+          Chat with Us
+        </a>
+
+        <!-- Mobile Hamburger / Close Button -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-[#0F3A2A] hover:bg-slate-100 rounded-lg transition-colors">
+          <svg id="icon-open" class="w-7 h-7 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+          <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+ <!-- 4. Mobile Dropdown Menu -->
+<div id="mobile-menu" class="hidden absolute top-[80px] left-0 w-full bg-[#FDFDFC] border-b border-slate-200 shadow-2xl lg:hidden">
+  <nav class="p-6 flex flex-col gap-1 text-[15px]">
+    
+   
+    <a href="index.html" class="block w-full text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-medium px-4 py-3 rounded-xl mb-2 transition-colors">
+  Home
+</a>
+
+    <!-- Cleaned up Mobile Icons -->
+    <a href="Fresh Flower.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
+      <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v20"/><path d="M12 12c-2 0-3-2-3-4s1-4 3-4 3 2 3 4-1 4-3 4z"/><path d="M12 12c0 2-2 3-4 3s-4-1-4-3 2-3 4-3 4 1 4 3z"/>
+      </svg>
+      Fresh Flowers
+    </a>
+ <!-- ACTIVE Home (Mobile): Dark Green Background -->
+   <a href="Gift occasion.html" class="flex items-center gap-4 px-4 py-3 bg-[#0F3A2A] text-white font-medium rounded-xl transition-colors">
+  <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+  </svg>
+  Gift Occasions
+</a>
+
+    <a href="Event.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
+      <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12v0c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.39-1.87.15-2.15 1.07v0c-.28.9-1.25 1.34-2.1 1.05l-.38-.13c-.84-.28-1.74.2-1.97 1.05L14 16"/><path d="m11 6 .33.82c.39.86-.15 1.87-1.07 2.15v0c-.9.28-1.34 1.25-1.05 2.1l.13.38c.28.84-.2 1.74-1.05 1.97L8 14"/>
+      </svg>
+      Events
+    </a>
+
+    <a href="Packaging.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
+      <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/>
+      </svg>
+      Packaging
+    </a>
+
+   
+    <a href="Testimonials.html" class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors mb-4">
+      <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+      </svg>
+      Testimonials
+    </a>
+
+    <!-- Mobile CTA -->
+    <a href="contact.html" class="flex items-center justify-center gap-2 w-full rounded-xl bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#20BD5A] shadow-md">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path></svg>
+      <span>Chat on WhatsApp</span>
+    </a>
+
+  </nav>
+</div>
+</header>
+
+    <!-- hero section -->
+      <section class="relative h-[50vh] min-h-[350px] flex items-center overflow-hidden">
+    <img src="./assets/service1.webp" alt="Flower Background"
+      class="absolute inset-0 w-full h-full object-cover object-center scale-105 animate-[floatSlow_14s_ease-in-out_infinite]" />
+
+    <div class="absolute inset-0 bg-gradient-to-r from-white via-white/55 to-transparent"></div>
+    <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[#0F3A2A]/10 blur-3xl"></div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-20 lg:py-32">
+
+      <!-- Applied the entry animation class to the content container below -->
+      <div class="max-w-2xl animate-reveal">
+        <span class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wide text-[#0F3A2A] bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm mb-5">🎁 Every Occasion Deserves a Gift</span>
+      </div>
+
+      <h1 class="animate-reveal [animation-delay:120ms] font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0a2219] leading-[1.12]">
+     Gift Occasions
+      </h1>
+
+      <p class="animate-reveal [animation-delay:220ms] mt-6 text-base sm:text-lg leading-relaxed text-slate-700 max-w-xl">
+      Curated gifts for every celebration — from religious milestones to personal achievements.
+      </p>
+
+
+
+      <div class="mt-12 pt-4 border-t border-slate-200/40 max-w-sm">
+        <ul class="flex items-center gap-4">
+          <li>
+            <a href="#"
+              class="block transition-all duration-300 transform hover:-translate-y-1 hover:scale-110 filter hover:brightness-95">
+              <img src="assets/social.png" class="h-8 w-8 object-contain" alt="WhatsApp" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="block transition-all duration-300 transform hover:-translate-y-1 hover:scale-110 filter hover:brightness-95">
+              <img src="assets/facebook.png" class="h-8 w-8 object-contain" alt="Facebook" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] transition-all duration-300 hover:-translate-y-1 hover:scale-110">
+              <img src="assets/icon-instagram.svg" class="object-contain" alt="Instagram" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-[#1DA1F2] transition-all duration-300 hover:-translate-y-1 hover:scale-110">
+              <img src="assets/icon-twitter.svg" class="object-contain" alt="Twitter" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm transition-all duration-300 transform hover:-translate-y-1 hover:bg-pink-100 hover:text-white">
+              <img src="assets/share.png" class="h-4 w-4 opacity-75 " alt="Share" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </section>
+
+<!-- Search Panel -->
+<div class="max-w-7xl mx-auto px-6 py-8 lg:py-10">
+
+  <div class="relative w-full max-w-xl mx-auto lg:mx-0 lg:ml-4">
+
+    <!-- Search Icon -->
+    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-[#0F3A2A]/60">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </div>
+
+    <!-- Input Field -->
+
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search gift categories..."
+      class="w-full bg-white border border-slate-200 text-slate-800 rounded-full py-4 pl-12 pr-6 outline-none focus:border-[#0F3A2A] focus:ring-4 focus:ring-[#0F3A2A]/10 transition-all shadow-[0_4px_20px_rgba(15,58,42,0.06)] placeholder:text-slate-400 font-medium"
+    >
+  </div>
+</div>
+
+<!-- drop down mwnu's -->
+   <section  class="bg-[#FCFCFA] py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div id="accordion-container" class="flex flex-col gap-4"></div>
+    </div>
+
+   <script>
+  // ==========================================
+  // 1. DATA (Your 34 Categories)
+  // ==========================================
+  const menuData = [
+    {
+      id: "Hajj Gifts",
+      title: "Hajj Gifts",
+      icon: "🕋",
+      description: "Welcome home gifts for Hajj pilgrims",
+      items: [
+        { name: "Hajj Mubarak Hamper", desc: "Premium dates, zamzam water, prayer beads & tasbih set", img: "./assets/dropdown images/Hajj Mubarak Hamper.jpg" },
+        { name: "Pilgrim's Welcome Box", desc: "Attar perfume, miswak, prayer mat & dried fruits", img: "assets/dropdown images/Pilgrim's Welcome Box.jpg" },
+        { name: "Sacred Journey Gift Set", desc: "Quran, tasbih, cap & dates elegantly packaged", img: "assets/dropdown images/Sacred Journey Gift Set.jpg" },
+        { name: "Hajj Celebration Basket", desc: "Sweets, chocolates, flowers & congratulations card", img: "assets/dropdown images/Hajj Celebration Basket.jpg" }
+      ],
+    },
+    {
+      id: "Umrah Gifts",
+      title: "Umrah Gifts",
+      icon: "🕌",
+      description: "A single perfect bloom to express your feelings",
+      items: [
+        { name: "Umrah Welcome Hamper", desc: "Zamzam water, dates, attar & prayer beads", img: "assets/dropdown images/Umrah Welcome Hamper.jpg" },
+        { name: "Blessed Return Gift Box", desc: "Premium dates, honey, black seed oil & miswak", img: "assets/dropdown images/Blessed Return Gift Box.jpg" },
+        { name: "Spiritual Journey Set", desc: "Prayer mat, Quran, tasbih & rose water", img: "assets/dropdown images/Spiritual Journey Set.jpg" },
+        { name: "Umrah Mubarak Bouquet", desc: "Fresh flowers with congratulations card", img: "assets/dropdown images/Umrah Mubarak Bouquet.jpg" }
+      ],
+    },
+    {
+      id: "Eid Gifts",
+      title: "Eid Gifts",
+      icon: "🌙",
+      description: "Celebrate Eid with beautiful gifts",
+      items: [
+        { name: "Eid Mubarak Chocolate Box", desc: "Luxury Belgian chocolates in crescent moon box", img: "/assets/dropdown images/Umrah Mubarak Bouquet.jpg" },
+        { name: "Eid Celebration Hamper", desc: "Sweets, dry fruits, dates & festive decorations",img: "assets/dropdown images/Umrah Welcome Hamper.jpg" },
+        { name: "Eid Floral Arrangement", desc: "White & gold themed fresh flower arrangement", img: "assets/dropdown images/Umrah Welcome Hamper.jpg" },
+        { name: "Eid Kids Gift Pack", desc: "Toys, chocolates, Eidi envelope & balloons", img: "assets/dropdown images/Spiritual Journey Set.jpg" },
+        { name: "Premium Eid Gift Set", desc: "Perfume, prayer beads, dates & luxury sweets", img: "assets/dropdown images/Umrah Mubarak Bouquet.jpg"  }
+      ],
+    },
+    {
+      id: "Ramadan Gifts",
+      title: "Ramadan Gifts",
+      icon: "☪️",
+      description: "Special gifts for the holy month",
+      items: [
+        { name: "Iftar Hamper", desc: "Dates, samosas, juices, sweets & snacks basket", img: "assets/dropdown images/Umrah Mubarak Bouquet.jpg"  },
+        { name: "Ramadan Lantern Gift Set", desc: "Decorative lantern, dates, tea & prayer beads", img:"assets/dropdown images/Umrah Mubarak Bouquet.jpg"  },
+        { name: "Suhoor Care Package", desc: "Energy bars, nuts, honey, oats & dried fruits", img: "assets/dropdown images/Spiritual Journey Set.jpg" },
+        { name: "Quran & Tasbih Set", desc: "Beautiful Quran with matching tasbih & stand", img:"assets/dropdown images/Umrah Welcome Hamper.jpg" }
+      ],
+    },
+    {
+      id: "Birthday Gifts",
+      title: "Birthday Gifts",
+      icon: "🎂",
+      description: "Special gifts for the holy month",
+      items: [
+        { name: "Birthday Surprise Box", desc: "Cake, balloons, confetti, candles & personalized card", img: "assets/dropdown images/Umrah Welcome Hamper.jpg" },
+        { name: "Luxury Birthday Hamper", desc: "Chocolates, wine, flowers & premium gift wrap", img: "assets/dropdown images/Spiritual Journey Set.jpg" },
+        { name: "Birthday Balloon Bouquet", desc: "Helium balloons, teddy bear & chocolate box", img:"assets/dropdown images/brides-gift-box.jpg"},
+        { name: "Personalized Birthday Gift", desc: "Custom mug, photo frame, cake & flowers", img: "assets/dropdown images/achievement-trophy-set.jpg" },
+        { name: "Kids Birthday Pack", desc: "Toys, cake, balloons, party hats & treats", img: "assets/dropdown images/wellness-gift-box.jpg" }
+      ],
+    },
+    {
+      id: "half-birthday-gifts",
+      title: "Half-Birthday Gifts",
+      icon: "🎉",
+      description: "Celebrate the halfway mark",
+      items: [
+        { name: "Half Cake Surprise", desc: "Half-shaped cake with balloons & confetti", img: "assets/dropdown images/cake-flowers-combo.jpeg.jpg" },
+        { name: "Mini Celebration Box", desc: "Cupcakes, small balloons & a fun card", img: "assets/dropdown images/gift-box.jpg" },
+        { name: "Half-Birthday Flowers", desc: "Cheerful flower arrangement with ribbon", img: "assets/dropdown images/flower-basket.jpg" },
+        { name: "Fun Half-Year Hamper", desc: "Snacks, chocolates, small toy & celebration banner", img: "assets/dropdown images/funny-mug-treats.jpeg.jpg" }
+      ],
+    },
+    {
+      id: "wedding-gifts",
+      title: "Wedding Gifts",
+      icon: "🏩",
+      description: "Elegant gifts for the big day",
+      items: [
+        { name: "Luxury Wedding Hamper", desc: "Crystal vase, premium chocolates, candles & flowers", img: "assets/dropdown images/leisure-relaxation-box.jpg" },
+        { name: "Couple's Gift Set", desc: "Matching robes, mugs, photo frame & sweets", img: "assets/dropdown images/couples-gift.jpg" },
+        { name: "Wedding Flower Basket", desc: "Premium roses, lilies & orchids in elegant basket", img: "assets/dropdown images/wedding-hamper.jpg" },
+        { name: "Gold & White Gift Box", desc: "Perfume, jewelry box, chocolates & card", img: "assets/dropdown images/rose-gold-anniversary.jpg" },
+        { name: "Cash Gift Envelope Set", desc: "Designer envelopes with flowers & congratulations", img: "assets/dropdown images/cash-envelope.jpg" }
+      ],
+    },
+    {
+      id: "wedding-anniversary-gifts",
+      title: "Wedding Anniversary Gifts",
+      icon: "💍",
+      description: "Celebrate years of love",
+      items: [
+        { name: "Anniversary Rose Bouquet", desc: "Red roses equal to years of marriage", img: "assets/dropdown images/anniversary-roses.jpg" },
+        { name: "Romantic Dinner Set", desc: "Candles, wine glasses, chocolates & flowers", img: "assets/dropdown images/romantic-dinner.jpg" },
+        { name: "Memory Photo Frame", desc: "Custom photo frame with flowers & cake", img: "assets/dropdown images/memory-lane-hamper.jpg" },
+        { name: "Couple's Spa Hamper", desc: "Bath bombs, candles, oils & rose petals", img: "assets/dropdown images/spa-hamper.jpeg" }
+      ],
+    },
+    {
+      id: "engagement-gifts",
+      title: "Engagement Gifts",
+      icon: "💎",
+      description: "Celebrate the engagement",
+      items: [
+        { name: "Engagement Celebration Box", desc: "Champagne glasses, chocolates, flowers & ring holder", img: "assets/dropdown images/engagement-box.jpg" },
+        { name: "Couple's Hamper", desc: "Matching items, sweets, photo frame & card", img: "assets/dropdown images/couples-hamper.jpg" },
+        { name: "Floral Ring Box", desc: "Fresh flowers arranged around ring display", img: "assets/dropdown images/floral-ring-box.jpg" },
+        { name: "Premium Engagement Set", desc: "Perfume, jewelry, chocolates & elegant packaging", img: "assets/dropdown images/premium-engagement.jpg" }
+      ],
+    },
+    {
+      id: "engagement-anniversary-gifts",
+      title: "Engagement Anniversary Gifts",
+      icon: "💐",
+      description: "Mark the engagement anniversary",
+      items: [
+        { name: "Anniversary Flower Box", desc: "Premium flowers in a heart-shaped box", img: "assets/dropdown images/anniversary-flower-box.jpg" },
+        { name: "Memory Lane Hamper", desc: "Photo album, chocolates, candles & flowers", img: "assets/dropdown images/memory-lane-hamper.jpg" },
+        { name: "Love Letter Set", desc: "Handwritten card, flowers & chocolate box", img: "assets/dropdown images/love-letter-set.jpg" },
+        { name: "Couple's Treat Box", desc: "Cake, wine, candles & personalized gift", img: "assets/dropdown images/couples-treat-box.jpg" }
+      ],
+    },
+    {
+      id: "nikah-gifts",
+      title: "Nikah Gifts",
+      icon: "🕌",
+      description: "Sacred gifts for the Nikah ceremony",
+      items: [
+        { name: "Nikah Mubarak Hamper", desc: "Quran, prayer mat, attar, dates & sweets", img: "assets/dropdown images/nikah-hamper.jpg" },
+        { name: "Bride's Gift Box", desc: "Jewelry, perfume, skincare & flowers", img: "assets/dropdown images/brides-gift-box.jpg" },
+        { name: "Groom's Gift Set", desc: "Watch, cufflinks, attar & premium dates", img: "assets/dropdown images/grooms-gift-set.jpg" },
+        { name: "Couple's Blessing Box", desc: "Matching prayer mats, Quran set & tasbih", img: "assets/dropdown images/couples-blessing-box.jpg" }
+      ],
+    },
+    {
+      id: "nikah-anniversary-gifts",
+      title: "Nikah Anniversary Gifts",
+      icon: "🌹",
+      description: "Celebrate the Nikah anniversary",
+      items: [
+        { name: "Rose Gold Anniversary Set", desc: "Flowers, chocolates, candles & photo frame", img: "assets/dropdown images/rose-gold-anniversary.jpg" },
+        { name: "Blessed Years Hamper", desc: "Prayer set, sweets, perfume & card", img: "assets/dropdown images/blessed-years-hamper.jpg" },
+        { name: "Romantic Surprise Box", desc: "Cake, flowers, balloons & love letter", img: "assets/dropdown images/romantic-surprise.jpg" },
+        { name: "Premium Anniversary Gift", desc: "Jewelry, perfume, flowers & luxury packaging", img: "assets/dropdown images/premium-anniversary.jpg" }
+      ],
+    },
+    {
+      id: "nikah-gift-boxes",
+      title: "Nikah Gift Boxes",
+      icon: "🎁",
+      description: "Beautifully curated Nikah gift boxes",
+      items: [
+        { name: "Classic Nikah Box", desc: "Dates, sweets, attar & prayer beads in velvet box", img: "assets/dropdown images/classic-nikah-box.jpg" },
+        { name: "Premium Nikah Box", desc: "Gold-accented box with perfume, dates & chocolates", img: "assets/dropdown images/gift-box.jpg" },
+        { name: "Luxury Nikah Box", desc: "Leather box with watch, attar, dates & miswak", img: "assets/dropdown images/leisure-relaxation-box.jpg" },
+        { name: "Mini Nikah Favor Boxes", desc: "Set of 10 small boxes with dates & chocolates", img: "assets/dropdown images/nikah-hamper.jpg" }
+      ],
+    },
+    {
+      id: "mehndi-dholki-gifts",
+      title: "Mehndi & Dholki Gifts",
+      icon: "🪘",
+      description: "Vibrant gifts for Mehndi celebrations",
+      items: [
+        { name: "Mehndi Night Hamper", desc: "Bangles, mehndi cones, candles & sweets", img: "assets/dropdown images/" },
+        { name: "Dholki Celebration Box", desc: "Colorful dupatta, bangles, sweets & flowers", img: "assets/dholki-box.jpeg" },
+        { name: "Bride's Mehndi Kit", desc: "Premium mehndi, oils, glitter & application tools", img: "assets/bride-mehndi-kit.jpeg" },
+        { name: "Colorful Gift Basket", desc: "Bangles, flowers, sweets & decorative items", img: "assets/colorful-gift-basket.jpeg" }
+      ],
+    },
+    {
+      id: "mothers-day-gifts",
+      title: "Mother's Day Gifts",
+      icon: "👩",
+      description: "Show mom how much you care",
+      items: [
+        { name: "Mom's Spa Day Set", desc: "Bath bombs, candles, face mask & flowers", img: "assets/moms-spa-set.jpeg" },
+        { name: "Queen Mom Hamper", desc: "Chocolates, tea set, flowers & personalized mug", img: "assets/queen-mom-hamper.jpeg" },
+        { name: "Flower Garden Box", desc: "Mixed fresh flowers in a hat box with card", img: "assets/flower-garden-box.jpeg" },
+        { name: "Premium Mom Gift Set", desc: "Perfume, jewelry, cake & luxury flowers", img: "assets/premium-mom-gift.jpeg" },
+        { name: "Breakfast in Bed Tray", desc: "Gourmet treats, tea, flowers & love note", img: "assets/breakfast-bed-tray.jpeg" }
+      ],
+    },
+    {
+      id: "fathers-day-gifts",
+      title: "Father's Day Gifts",
+      icon: "👨",
+      description: "Gifts dad will truly appreciate",
+      items: [
+        { name: "Dad's Grooming Kit", desc: "Beard oil, cologne, comb & premium soap", img: "assets/dads-grooming-kit.jpeg" },
+        { name: "Best Dad Hamper", desc: "Watch, wallet, chocolates & personalized card", img: "assets/best-dad-hamper.jpeg" },
+        { name: "Coffee Lover's Set", desc: "Premium coffee, mug, biscuits & cake", img: "assets/coffee-lovers-set.jpeg" },
+        { name: "Dad's Relaxation Box", desc: "Book, snacks, tea & comfortable socks", img: "assets/dads-relaxation-box.jpeg" }
+      ],
+    },
+    {
+      id: "teachers-day-gifts",
+      title: "Teacher's Day Gifts",
+      icon: "📚",
+      description: "Appreciate your teachers",
+      items: [
+        { name: "Teacher Appreciation Box", desc: "Stationery set, chocolates, flowers & card", img: "assets/teacher-appreciation-box.jpeg" },
+        { name: "Best Teacher Mug Set", desc: "Custom mug, tea, biscuits & thank you card", img: "assets/teacher-mug-set.jpeg" },
+        { name: "Flower & Book Gift", desc: "Fresh flowers with a bestselling book", img: "assets/flower-book-gift.jpeg" },
+        { name: "Premium Teacher Hamper", desc: "Planner, pen set, chocolates & flowers", img: "assets/premium-teacher-hamper.jpeg" }
+      ],
+    },
+    {
+      id: "valentines-day-gifts",
+      title: "Valentine's Day Gifts",
+      icon: "❤️",
+      description: "Express your love beautifully",
+      items: [
+        { name: "Red Rose Bouquet", desc: "12 premium red roses with baby's breath", img: "assets/red-rose-bouquet.jpeg" },
+        { name: "Love Hamper", desc: "Chocolates, teddy bear, roses & love letter", img: "assets/love-hamper.jpeg" },
+        { name: "Heart Chocolate Box", desc: "Heart-shaped box with premium chocolates", img: "assets/heart-chocolate-box.jpeg" },
+        { name: "Romantic Evening Set", desc: "Candles, wine glasses, roses & cake", img: "assets/romantic-evening-set.jpeg" },
+        { name: "Forever Love Gift", desc: "Preserved roses, jewelry & personalized card", img: "assets/forever-love-gift.jpeg" }
+      ],
+    },
+    {
+      id: "new-years-gifts",
+      title: "New Year's Gifts",
+      icon: "🎆",
+      description: "Ring in the new year with joy",
+      items: [
+        { name: "New Year Hamper", desc: "Champagne, chocolates, crackers & party items", img: "assets/new-year-hamper.jpeg" },
+        { name: "Countdown Gift Box", desc: "Sparklers, confetti, treats & wishes card", img: "assets/countdown-gift-box.jpeg" },
+        { name: "Resolution Planner Set", desc: "Planner, pen, motivational book & chocolates", img: "assets/resolution-planner.jpeg" },
+        { name: "Golden New Year Basket", desc: "Gold-themed treats, candles & decorations", img: "assets/golden-new-year.jpeg" }
+      ],
+    },
+    {
+      id: "christmas-gifts",
+      title: "Christmas Gifts",
+      icon: "🎄",
+      description: "Spread Christmas cheer",
+      items: [
+        { name: "Christmas Hamper", desc: "Cookies, hot chocolate, ornaments & candy canes", img: "assets/christmas-hamper.jpeg" },
+        { name: "Santa's Gift Box", desc: "Toys, chocolates, stockings & Christmas card", img: "assets/santas-gift-box.jpeg" },
+        { name: "Winter Warmth Set", desc: "Scarf, gloves, hot cocoa & marshmallows", img: "assets/winter-warmth-set.jpeg" },
+        { name: "Christmas Tree Decoration Kit", desc: "Ornaments, lights, star topper & tinsel", img: "assets/christmas-tree-kit.jpeg" }
+      ],
+    },
+    {
+      id: "independence-day-gifts",
+      title: "Independence Day Gifts",
+      icon: "🇵🇰",
+      description: "Patriotic celebration gifts",
+      items: [
+        { name: "Pakistan Pride Box", desc: "Flag, badges, green & white treats & card", img: "assets/pakistan-pride-box.jpeg" },
+        { name: "Azadi Celebration Hamper", desc: "Green cake, flags, balloons & sweets", img: "assets/azadi-celebration-hamper.jpeg" },
+        { name: "Patriotic Gift Set", desc: "Badge, wristband, flag & chocolates", img: "assets/patriotic-gift-set.jpeg" },
+        { name: "Green & White Bouquet", desc: "White flowers with green ribbon arrangement", img: "assets/green-white-bouquet.jpeg" }
+      ],
+    },
+    {
+      id: "graduation-gifts",
+      title: "Graduation Gifts",
+      icon: "🎓",
+      description: "Celebrate academic achievements",
+      items: [
+        { name: "Graduate's Success Box", desc: "Pen set, planner, chocolates & congratulations card", img: "assets/graduates-success-box.jpeg" },
+        { name: "Achievement Hamper", desc: "Watch, book, flowers & premium chocolates", img: "assets/achievement-hamper.jpeg" },
+        { name: "Graduation Balloon Bouquet", desc: "Cap-shaped balloons, flowers & teddy", img: "assets/graduation-balloon-bouquet.jpeg" },
+        { name: "Future Leader Gift Set", desc: "Laptop bag, notebook, pen & inspirational book", img: "assets/future-leader-gift.jpeg" }
+      ],
+    },
+    {
+      id: "hifz-quran-gifts",
+      title: "Hifz-e-Quran Completion Gifts",
+      icon: "📖",
+      description: "Honor this sacred achievement",
+      items: [
+        { name: "Hafiz Mubarak Hamper", desc: "Premium Quran, stand, tasbih & sweets", img: "assets/hafiz-mubarak-hamper.jpeg" },
+        { name: "Scholar's Gift Box", desc: "Quran, prayer mat, cap, attar & dates", img: "assets/scholars-gift-box.jpeg" },
+        { name: "Celebration Basket", desc: "Sweets, flowers, balloons & congratulations banner", img: "assets/celebration-basket.jpeg" },
+        { name: "Premium Hafiz Set", desc: "Gold-embossed Quran, luxury tasbih & attar", img: "assets/premium-hafiz-set.jpeg" }
+      ],
+    },
+    {
+      id: "newborn-baby-gifts",
+      title: "Newborn Baby Gifts",
+      icon: "👶",
+      description: "Welcome the new arrival",
+      items: [
+        { name: "Baby Welcome Hamper", desc: "Clothes, toys, blanket & congratulations card", img: "assets/baby-welcome-hamper.jpeg" },
+        { name: "It's a Boy/Girl Box", desc: "Themed clothes, rattle, booties & balloons", img: "assets/boy-girl-box.jpeg" },
+        { name: "New Parents Care Package", desc: "Baby essentials, snacks for parents & flowers", img: "assets/new-parents-care.jpeg" },
+        { name: "Premium Baby Gift Set", desc: "Designer clothes, silver rattle & luxury blanket", img: "assets/premium-baby-set.jpeg" },
+        { name: "Milestone Memory Box", desc: "Photo frame, milestone cards & keepsake box", img: "assets/milestone-memory-box.jpeg" }
+      ],
+    },
+    {
+      id: "child-first-steps-gifts",
+      title: "Child's First Steps Gifts",
+      icon: "👣",
+      description: "Celebrate baby's first steps",
+      items: [
+        { name: "First Steps Celebration", desc: "Baby shoes, cake, balloons & photo frame", img: "assets/first-steps-celebration.jpeg" },
+        { name: "Walking Milestone Box", desc: "First shoes, teddy bear & milestone card", img: "assets/walking-milestone.jpeg" },
+        { name: "Baby Achievement Set", desc: "Personalized onesie, toys & celebration banner", img: "assets/baby-achievement.jpeg" },
+        { name: "Little Explorer Gift", desc: "Push walker toy, shoes & treats for baby", img: "assets/little-explorer.jpeg" }
+      ],
+    },
+    {
+      id: "child-first-tooth-gifts",
+      title: "Child's First Tooth Gifts",
+      icon: "🦷",
+      description: "Mark this adorable milestone",
+      items: [
+        { name: "First Tooth Keepsake Box", desc: "Silver tooth box, bib & celebration card", img: "assets/first-tooth-box.jpeg" },
+        { name: "Teething Celebration Set", desc: "Teething toys, bib, cake & balloons", img: "assets/teething-celebration.jpeg" },
+        { name: "Baby Smile Gift", desc: "Photo frame, milestone card & small cake", img: "assets/baby-smile-gift.jpeg" },
+        { name: "Tooth Fairy Box", desc: "Decorative box, chocolates & congratulations", img: "assets/tooth-fairy-box.jpeg" }
+      ],
+    },
+    {
+      id: "child-first-roza-gifts",
+      title: "Child's First Roza Gifts",
+      icon: "🤲",
+      description: "Celebrate the first fast",
+      items: [
+        { name: "First Roza Hamper", desc: "Dates, juice, sweets, cap & congratulations card", img: "assets/first-roza-hamper.jpeg" },
+        { name: "Little Faster's Gift Box", desc: "Prayer mat, tasbih, treats & achievement certificate", img: "assets/little-fasters-box.jpeg" },
+        { name: "Iftar Celebration Set", desc: "Special iftar treats, juice & balloons", img: "assets/iftar-celebration.jpeg" },
+        { name: "Proud Moment Gift", desc: "Cake, flowers, toys & personalized card", img: "assets/proud-moment-gift.jpeg" }
+      ],
+    },
+    {
+      id: "new-mobile-phone-gifts",
+      title: "New Mobile Phone Gifts",
+      icon: "📱",
+      description: "Celebrate a new phone",
+      items: [
+        { name: "Phone Accessories Box", desc: "Case, screen protector, earbuds & power bank", img: "/assets/dropdown images/phone-accessories.jpg" },
+        { name: "Tech Lover's Hamper", desc: "Phone stand, cable organizer, stickers & treats", img: "/assets/dropdown images/tech-hamper.jpg" },
+        { name: "New Phone Celebration", desc: "Balloons, cake, phone case & congratulations", img: "/assets/dropdown images/new-phone-celebration.jpg" },
+        { name: "Premium Tech Gift Set", desc: "Wireless charger, earbuds, case & chocolates", img: "/assets/dropdown images/premium-tech-set.jpg" }
+      ],
+    },
+    {
+      id: "get-well-soon-gifts",
+      title: "Get Well Soon Gifts",
+      icon: "🏥",
+      description: "Wish someone a speedy recovery",
+      items: [
+        { name: "Recovery Care Package", desc: "Fruits, juice, honey, soup & get well card", img: "/assets/dropdown images/recovery-care.png" },
+        { name: "Cheerful Flower Basket", desc: "Bright sunflowers & daisies with treats", img: "/assets/dropdown images/cheerful-flower-basket.jpg" },
+        { name: "Comfort Hamper", desc: "Blanket, book, tea, honey & biscuits", img: "/assets/dropdown images/comfort-hamper.jpg" },
+        { name: "Wellness Gift Box", desc: "Vitamins, fruits, juice & motivational card", img: "/assets/dropdown images/wellness-gift-box.jpg" }
+      ],
+    },
+    {
+      id: "condolence-gifts",
+      title: "Condolence Gifts & Wreaths",
+      icon: "🕊️",
+      description: "Express sympathy with grace",
+      items: [
+        { name: "Sympathy Wreath", desc: "White lilies & roses circular wreath arrangement", img: "/assets/dropdown images/sympathy-wreath.jpg" },
+        { name: "Condolence Flower Stand", desc: "Elegant standing arrangement for funeral", img: "/assets/dropdown images/condolence-flower-stand.jpg" },
+        { name: "Comfort & Prayer Set", desc: "Quran, tasbih, prayer mat & dates", img: "/assets/dropdown images/comfort-prayer-set.jpg" },
+        { name: "White Lily Arrangement", desc: "Pure white lilies in a serene arrangement", img: "/assets/dropdown images/white-lily-arrangement.jpg" }
+      ],
+    },
+    {
+      id: "retirement-gifts",
+      title: "Retirement Gifts",
+      icon: "🏖️",
+      description: "Celebrate a well-earned retirement",
+      items: [
+        { name: "Retirement Celebration Box", desc: "Watch, plaque, chocolates & flowers", img: "/assets/dropdown images/retirement-celebration-box.jpg" },
+        { name: "New Chapter Hamper", desc: "Book, tea set, gardening kit & treats", img: "/assets/dropdown images/new-chapter-hamper.jpg" },
+        { name: "Thank You Gift Set", desc: "Personalized plaque, pen, photo frame & cake", img: "/assets/dropdown images/thank-you-gift-set.jpg" },
+        { name: "Leisure & Relaxation Box", desc: "Puzzle, book, snacks & comfortable slippers", img: "/assets/dropdown images/leisure-relaxation-box.jpg" }
+      ],
+    },
+    {
+      id: "promotion-achievement-gifts",
+      title: "Promotion & Achievement Gifts",
+      icon: "🏆",
+      description: "Celebrate career milestones",
+      items: [
+        { name: "Congratulations Hamper", desc: "Champagne, chocolates, flowers & trophy", img: "/assets/dropdown images/congratulations-hamper.jpg" },
+        { name: "Executive Gift Set", desc: "Premium pen, business card holder & cufflinks", img: "/assets/dropdown images/executive-gift-set.jpg" },
+        { name: "Success Celebration Box", desc: "Cake, balloons, flowers & congratulations card", img: "/assets/dropdown images/success-celebration-box.png" },
+        { name: "Achievement Trophy Set", desc: "Custom trophy, chocolates & bouquet", img: "/assets/dropdown images/achievement-hamper.jpg" }
+      ],
+    },
+    {
+      id: "cake-gifts",
+      title: "Cake Gifts",
+      icon: "🎂",
+      description: "Delicious cakes for every occasion",
+      items: [
+        { name: "Designer Fondant Cake", desc: "Custom themed fondant cake with decorations", img: "/assets/dropdown images/designer-fondant-cake.jpeg.jpg" },
+        { name: "Chocolate Dream Cake", desc: "Rich chocolate layered cake with ganache", img: "/assets/dropdown images/chocolate-dream-cake.jpeg.jpg" },
+        { name: "Fresh Fruit Cake", desc: "Light sponge cake topped with fresh fruits", img: "/assets/dropdown images/fresh-fruit-cake.jpeg.jpg" },
+        { name: "Cake & Flowers Combo", desc: "Beautiful cake paired with fresh flower bouquet", img: "/assets/dropdown images/cake-flowers-combo.jpeg.jpg" },
+        { name: "Cupcake Tower", desc: "Tiered display of decorated cupcakes", img: "/assets/dropdown images/cupcake-tower.jpeg.jpg" }
+      ],
+    },
+    {
+      id: "prank-novelty-gifts",
+      title: "Prank & Novelty Gifts",
+      icon: "🎭",
+      description: "Fun and surprising prank gifts",
+      items: [
+        { name: "Surprise Prank Box", desc: "Confetti explosion box with hidden gift inside", img: "/assets/dropdown images/surprise-prank-box.jpeg.jpg" },
+        { name: "Fake Bug Gift Set", desc: "Realistic fake insects in a beautiful gift box", img: "/assets/dropdown images/fake-bug-gift.jpeg.jpg" },
+        { name: "Mystery Box", desc: "Layers of boxes within boxes with final surprise", img: "/assets/dropdown images/mystery-box.jpeg.jpg" },
+        { name: "Funny Mug & Treats", desc: "Hilarious custom mug with joke chocolates", img: "/assets/dropdown images/funny-mug-treats.jpeg.jpg" }
+      ],
+    }
+  ];
+
+  // ==========================================
+  // 2. GET HTML ELEMENTS
+  // ==========================================
+  const searchInput = document.getElementById('searchInput');
+  const accordionContainer = document.getElementById('accordion-container');
+
+  // ==========================================
+  // 3. RENDER FUNCTION (Builds your custom UI)
+  // ==========================================
+  function renderAccordion(dataToRender, currentSearchTerm = "") {
+    if (!accordionContainer) return;
+
+    // Clear out the current list
+    accordionContainer.innerHTML = "";
+
+    // If nothing matches the search, show the "Not found" message
+    if (dataToRender.length === 0) {
+      accordionContainer.innerHTML = `
+        <div class="text-center py-12 text-slate-500 text-[15px]">
+          No categories found matching "${currentSearchTerm}"
+        </div>
+      `;
+      return;
+    }
+
+    // Use .map() to loop over the data and build the HTML just like you wanted
+    const accentPalette = ["#0F3A2A", "#8A3324", "#3E7F55", "#1E4620", "#0a5c66"];
+    accordionContainer.innerHTML = dataToRender.map((category, idx) => {
+      const accent = accentPalette[idx % accentPalette.length];
+      return `
+      <div class="group/card bg-white border border-slate-100 rounded-[28px] shadow-[0_2px_20px_rgba(15,58,42,0.05)] hover:shadow-[0_18px_40px_rgba(15,58,42,0.12)] hover:border-[#0F3A2A]/15 transition-all duration-500 overflow-hidden mb-5">
+
+        <button
+          onclick="toggleAccordion('${category.id}')"
+          class="w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left transition-colors relative"
+        >
+          <span class="absolute left-0 top-0 bottom-0 w-1 rounded-r-full opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" style="background:${accent};"></span>
+          <div class="flex items-center gap-4 md:gap-5 min-w-0">
+            <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-2xl md:text-3xl shadow-inner transition-transform duration-500 group-hover/card:scale-105 group-hover/card:-rotate-3" style="background: linear-gradient(135deg, ${accent}18, #FFFFFF);">
+              ${category.icon}
+            </div>
+            <div class="min-w-0">
+              <h2 class="font-bold text-lg md:text-xl text-[#0F3A2A] truncate" style="font-family: 'Playfair Display', serif;">${category.title}</h2>
+              <p class="text-sm text-slate-500 mt-1 line-clamp-1">${category.description}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-1.5 rounded-full" style="background-color:${accent}14; color:${accent};">
+              <span class="w-1.5 h-1.5 rounded-full" style="background-color:${accent}"></span>
+              ${category.items ? category.items.length : 0} items
+            </span>
+            <span
+              id="icon-${category.id}"
+              class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 transition-all duration-300 group-hover/card:border-[#0F3A2A] group-hover/card:text-[#0F3A2A]"
+            >
+              <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </span>
+          </div>
+        </button>
+
+        <div id="content-${category.id}" class="px-5 md:px-6 pb-6 hidden transition-all duration-300">
+          <div class="pt-2 border-t border-slate-100 mb-6"></div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            ${category.items ? category.items.map((item) => `
+              <div class="group flex flex-col bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-400" data-share-title="${item.name} - Avon Gifts" data-share-text="${item.desc}">
+                <div class="overflow-hidden">
+                  <img src="${item.img}" alt="${item.name}" class="h-48 w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <div class="p-4 flex-1">
+                  <h3 class="text-slate-800 font-semibold text-sm">${item.name}</h3>
+                  <p class="text-xs text-slate-500 mt-1 leading-relaxed">${item.desc}</p>
+                </div>
+                
+                <div class="p-4 pt-0 flex items-center justify-between gap-1">
+                  <a href="#" class="flex items-center gap-1 bg-[#25D366] text-white px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-[#20bd5a] hover:shadow-[0_6px_16px_rgba(37,211,102,0.35)] transition-all whitespace-nowrap">
+                    <span class="flex items-center justify-center shrink-0">
+                      <img src="assets/chat.png" class="h-4 w-4 brightness-0 invert" alt="Chat" />
+                    </span>
+                    Order
+                  </a>
+                  <div class="flex items-center gap-1 shrink-0">
+                    <div class="w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                      <img src="assets/social.png" class="h-4 w-4 object-contain" />
+                    </div>
+                    <div class="w-6 h-6 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                      <img src="assets/facebook.png" class="h-4 w-4 object-contain" />
+                    </div>
+                    <div class="w-6 h-6 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                      <img src="assets/icon-twitter.svg" class="h-3.5 w-3.5 object-contain" />
+                    </div>
+                    <div class="w-6 h-6 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                      <img src="assets/icon-instagram.svg" class="h-3.5 w-3.5 object-contain" alt="Instagram" />
+                    </div>
+                    <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                      <img src="assets/share.png" class="h-3.5 w-3.5 object-contain" alt="Share" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `).join("") : ""}
+            
+          </div>
+        </div>
+      </div>
+    `;
+    }).join("");
+  }
+
+  // ==========================================
+  // 4. ACCORDION TOGGLE LOGIC
+  // ==========================================
+  function toggleAccordion(categoryId) {
+    const targetContent = document.getElementById(`content-${categoryId}`);
+    const targetIcon = document.getElementById(`icon-${categoryId}`);
+    
+    if (!targetContent || !targetIcon) return;
+
+    const isAlreadyOpen = !targetContent.classList.contains("hidden");
+
+    // Close all open content blocks
+    document.querySelectorAll('[id^="content-"]').forEach((el) => el.classList.add("hidden"));
+    document.querySelectorAll('[id^="icon-"]').forEach((el) => el.classList.remove("rotate-180"));
+
+    // Toggle current target if it wasn't open
+    if (!isAlreadyOpen) {
+      targetContent.classList.remove("hidden");
+      targetIcon.classList.add("rotate-180");
+    }
+  }
+
+  // ==========================================
+  // 5. SEARCH LOGIC
+  // ==========================================
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase().trim();
+      
+      const filteredCategories = menuData.filter(category => {
+        return category.title.toLowerCase().includes(searchTerm) || 
+               category.description.toLowerCase().includes(searchTerm);
+      });
+
+      // Pass the filtered results to your drawing function
+      renderAccordion(filteredCategories, e.target.value);
+    });
+  }
+
+  // ==========================================
+  // 6. INITIAL LOAD
+  // ==========================================
+  // Run this once at the very bottom so the page loads all cards initially!
+  renderAccordion(menuData);
+
+</script>
+    </section>
+
+
+
+
+     <!-- cta -->
+    <section class="bg-[#123C2C] py-20 px-4 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-white mb-4 font-serif text-foreground"
+          style="font-family: &quot;Playfair Display&quot;, serif"
+        >
+    Can't Find What You're Looking For?
+        </h2>
+
+        <p
+          class="text-white/80 text-lg leading-7 mb-8 max-w-xl mx-auto"
+          style="font-family: &quot;DM Sans&quot;, sans-serif"
+        >
+       Tell us about your occasion and we'll create the perfect gift for you.
+        </p>
+
+        <a
+          href="#"
+          class="inline-flex items-center gap-2.5 bg-white text-[#0F3A2A]  px-8 py-3.5 rounded-full text-[15px] font-semibold shadow-[0_8px_20px_rgba(15,58,42,0.2)] hover:shadow-[0_10px_25px_rgba(15,58,42,0.3)] hover:-translate-y-1 transition-all duration-300"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"
+            ></path>
+          </svg>
+         Chat with Us on WhatsApp
+        </a>
+      </div>
+    </section>
+        <!-- Floating WhatsApp Button -->
+<a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 z-50 group">
+  
+  <!-- The Green Button -->
+  <div class="w-14 h-14 bg-gradient-to-br from-[#25D366] to-[#128C7E] hover:from-[#20BD5A] hover:to-[#0f7566] rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] transition-all duration-300 group-hover:scale-110 wa-pulse">
+    
+    <!-- WhatsApp Icon -->
+    <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+    </svg>
+    
+    <!-- The Red Notification Dot -->
+    <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"></span>
+  </div>
+</a>
+
+
+
+     <!-- footer -->
+     <footer class="bg-[#123C2C] py-20 text-white">
+    <!-- Container -->
+    <div class="container mx-auto px-6">
+      <!-- Main Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <!-- ================= Column 1 ================= -->
+        <div>
+          <!-- Logo -->
+          <div class="flex items-center gap-3">
+            <!-- Logo Icon -->
+            <div class="bg-[#3e7f5522] h-8 w-8 flex items-center justify-center rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-flower2 w-5 h-5">
+                <path
+                  d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1">
+                </path>
+                <circle cx="12" cy="8" r="2"></circle>
+                <path d="M12 10v12"></path>
+                <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"></path>
+                <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"></path>
+              </svg>
+            </div>
+
+            <!-- Logo Text -->
+            <h2 class="text-2xl font-bold font-serif">Avon</h2>
+          </div>
+
+          <!-- Description -->
+          <div class="mt-8 text-sm text-white/70">
+            <p>
+              Crafting moments of joy through fresh flowers, thoughtful gifts,
+              and unforgettable event experiences.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= Column 2 ================= -->
+        <div>
+          <!-- Heading -->
+          <h3 class="text-lg font-semibold font-serif">Services</h3>
+
+          <!-- Navigation -->
+          <ul class="mt-8 space-y-3 text-sm text-white/70">
+            <li class="hover:text-white">
+              <a href="">Fresh Flowers</a>
+            </li>
+
+            <li class="hover:text-white transition-colors">
+              <a href="">Gift Occasions</a>
+            </li>
+
+            <li class="hover:text-white transition-colors">
+              <a href="">Event Decoration</a>
+            </li>
+
+            <li class="hover:text-white transition-colors">
+              <a href="">Gift Packaging</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ================= Column 3 ================= -->
+       <div>
+            <h3 class="font-serif text-lg font-semibold">Company</h3>
+
+            <ul class="mt-8 space-y-3 text-sm text-white/70">
+              <li class="hover:text-white transition-colors cursor-pointer"><a href="">About Us</a></li>
+              <li class="hover:text-white transition-colors cursor-pointer"><a href="">Contact</a></li>
+              <li class="hover:text-white transition-colors cursor-pointer"><a href="">FAQ</a></li>
+              <li class="hover:text-white transition-colors cursor-pointer"><a href="">Terms & Conditions</a></li>
+            </ul>
+          </div> <div>
+            <h3 class="font-serif text-lg font-semibold">Get in Touch</h3>
+
+            <div class="mt-8 space-y-3 text-sm text-white/70">
+              <p>info@avongifts.com</p>
+              <p>+92 300 1234567</p>
+              <p>Mon - Sat: 9AM - 9PM</p>
+            </div>
+
+            <div class="mt-10">
+              <a href=""
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors">
+                <span>
+                 <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"
+                    ></path>
+                  </svg>
+                </span>
+                <span>WhatsApp Us</span>
+              </a>
+            </div>
+          </div> </div> <div class="mt-12 pt-8 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/70">
+          <div>
+            © 2024 Avon Gifts & Events. All rights reserved.
+          </div>
+
+          <div>Delivering happiness, one gift at a time.</div>
+        </div>
+      </div> </footer>
+
+    
+
+  </body>
+ <script src="js/navbar.js"></script>
+  <script src="js/share.js" defer ></script>
+</html>

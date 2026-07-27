@@ -1,0 +1,1276 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>events | Avon Gifts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+
+  <style>
+    body {
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .font-display {
+      font-family: "Playfair Display", serif;
+    }
+  </style>
+
+    <style>
+      /* ===== Avon shared enhancements ===== */
+      html { scroll-behavior: smooth; }
+      ::selection { background: #0F3A2A; color: #fff; }
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-track { background: #FAF6EE; }
+      ::-webkit-scrollbar-thumb { background: #C9BFA0; border-radius: 999px; }
+      ::-webkit-scrollbar-thumb:hover { background: #0F3A2A; }
+
+      header.scrolled { box-shadow: 0 10px 30px rgba(15,58,42,0.09); }
+
+      .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+      .reveal.is-visible { opacity: 1; transform: translateY(0); }
+      .reveal-scale { opacity: 0; transform: scale(.94); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+      .reveal-scale.is-visible { opacity: 1; transform: scale(1); }
+      .reveal-down { opacity: 0; transform: translateY(-46px); transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1); }
+      .reveal-down.is-visible { opacity: 1; transform: translateY(0); }
+      .reveal-right { opacity: 0; transform: translateX(70px); transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+      .reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+      @keyframes waPulse {
+        0% { box-shadow: 0 0 0 0 rgba(37,211,102,.55); }
+        70% { box-shadow: 0 0 0 16px rgba(37,211,102,0); }
+        100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
+      }
+      .wa-pulse { animation: waPulse 2.4s cubic-bezier(.4,0,.6,1) infinite; }
+
+      @keyframes floatSlow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .float-slow { animation: floatSlow 5s ease-in-out infinite; }
+
+      .btn-glow { position: relative; overflow: hidden; }
+      .btn-glow::after {
+        content: ""; position: absolute; inset: 0;
+        background: linear-gradient(120deg, transparent, rgba(255,255,255,.35), transparent);
+        transform: translateX(-120%); transition: transform .6s ease;
+      }
+      .btn-glow:hover::after { transform: translateX(120%); }
+    </style>
+
+  
+    <style>
+      /* ===== Avon share system ===== */
+      .share-pop {
+        position: fixed; z-index: 9999; background: #fff; border-radius: 18px;
+        box-shadow: 0 20px 55px rgba(15,58,42,0.2); border: 1px solid rgba(15,58,42,0.08);
+        padding: 10px; display: flex; gap: 8px; opacity: 0;
+        transform: translateY(8px) scale(.94); transform-origin: bottom center;
+        transition: opacity .18s ease, transform .18s ease; pointer-events: none;
+      }
+      .share-pop.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+      .share-pop a, .share-pop button {
+        width: 42px; height: 42px; border-radius: 12px; display: flex;
+        align-items: center; justify-content: center; transition: transform .2s ease, box-shadow .2s ease;
+        border: none; cursor: pointer;
+      }
+      .share-pop a:hover, .share-pop button:hover { transform: translateY(-3px) scale(1.08); box-shadow: 0 8px 16px rgba(0,0,0,.12); }
+      .share-toast {
+        position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px);
+        background: #0F3A2A; color: #fff; padding: 10px 20px; border-radius: 999px;
+        font-size: 13px; font-weight: 600; opacity: 0; transition: opacity .25s ease, transform .25s ease;
+        z-index: 10000; pointer-events: none; box-shadow: 0 10px 30px rgba(15,58,42,.35);
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .share-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+
+  </head>
+
+<body>
+  <!--  nav bar-->
+  <header
+    class="w-full border-b border-slate-100 sticky top-0 z-50 bg-white/90 backdrop-blur-lg transition-all duration-300">
+    <div class="container mx-auto px-4 max-w-7xl">
+      <div class="flex items-center justify-between h-20">
+
+        <!-- 1. CORRECTED LOGO: Flower SVG instead of Dollar Sign -->
+        <a href="index.html" class="flex items-center gap-2">
+          <div class="w-10 h-10 bg-[#0F3A2A] rounded-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="lucide lucide-flower2 w-5 h-5 text-white">
+              <path
+                d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1">
+              </path>
+              <circle cx="12" cy="8" r="2"></circle>
+              <path d="M12 10v12"></path>
+              <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"></path>
+              <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"></path>
+            </svg>
+          </div>
+          <span class="text-2xl font-bold text-[#0F3A2A]" style="font-family: 'Playfair Display', serif;">Avon</span>
+        </a>
+
+        <!-- 2. Desktop Menu (Testimonials Active, Home Inactive) -->
+        <nav class="hidden lg:flex items-center gap-2 text-[15px] font-medium">
+
+
+          <a href="index.html"
+            class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+            Home
+          </a>
+          <a href="Fresh Flower.html"
+            class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+            Fresh Flowers
+          </a>
+
+          <a href="Gift occasion.html"
+            class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+            Gift Occasions
+          </a>
+          <!-- ACTIVE PAGE: Dark Green Pill -->
+          <a href="Event.html" class="bg-[#0F3A2A] text-white px-6 py-2.5 rounded-full transition-all">
+            Events
+          </a>
+
+          <a href="Packaging.html"
+            class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+            Packaging
+          </a>
+
+
+          <a href="Testimonials.html"
+            class="text-slate-600 hover:bg-slate-100 hover:text-slate-900 px-4 py-2.5 rounded-full transition-all">
+            Testimonials
+          </a>
+
+        </nav>
+
+        <!-- 3. Desktop CTA Button & Mobile Toggle Button -->
+        <div class="flex items-center gap-4">
+
+          <!-- Desktop WhatsApp Button -->
+          <a href="contact.html"
+            class="hidden lg:flex items-center gap-2 bg-[#25D366] text-white px-6 py-2.5 rounded-full font-semibold transition-all duration-300 shadow-[0_8px_16px_rgba(37,211,102,0.25)] hover:shadow-[0_10px_20px_rgba(37,211,102,0.4)] hover:-translate-y-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+            </svg>
+            Chat with Us
+          </a>
+
+          <!-- Mobile Hamburger / Close Button -->
+          <button id="mobile-menu-btn"
+            class="lg:hidden p-2 text-[#0F3A2A] hover:bg-slate-100 rounded-lg transition-colors">
+            <svg id="icon-open" class="w-7 h-7 block" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Mobile Dropdown Menu -->
+    <div id="mobile-menu"
+      class="hidden absolute top-[80px] left-0 w-full bg-[#FDFDFC] border-b border-slate-200 shadow-2xl lg:hidden">
+      <nav class="p-6 flex flex-col gap-1 text-[15px]">
+
+
+        <a href="index.html"
+          class="block w-full text-slate-600 hover:bg-slate-100 hover:text-slate-900 font-medium px-4 py-3 rounded-xl mb-2 transition-colors">
+          Home
+        </a>
+
+        <!-- Cleaned up Mobile Icons -->
+        <a href="Fresh Flower.html"
+          class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
+          <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v20" />
+            <path d="M12 12c-2 0-3-2-3-4s1-4 3-4 3 2 3 4-1 4-3 4z" />
+            <path d="M12 12c0 2-2 3-4 3s-4-1-4-3 2-3 4-3 4 1 4 3z" />
+          </svg>
+          Fresh Flowers
+        </a>
+
+        <a href="Gift occasion.html"
+          class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
+          <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="8" width="18" height="4" rx="1" />
+            <path d="M12 8v13" />
+            <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7" />
+            <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" />
+          </svg>
+          Gift Occasions
+        </a>
+        <!-- ACTIVE Home (Mobile): Dark Green Background -->
+        <a href="Event.html"
+          class="flex items-center gap-4 px-4 py-3 bg-[#0F3A2A] text-white font-medium rounded-xl transition-colors">
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5.8 11.3 2 22l10.7-3.79" />
+            <path d="M4 3h.01" />
+            <path d="M22 8h.01" />
+            <path d="M15 2h.01" />
+            <path d="M22 20h.01" />
+            <path
+              d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12v0c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10" />
+            <path
+              d="m22 13-.82-.33c-.86-.39-1.87.15-2.15 1.07v0c-.28.9-1.25 1.34-2.1 1.05l-.38-.13c-.84-.28-1.74.2-1.97 1.05L14 16" />
+            <path
+              d="m11 6 .33.82c.39.86-.15 1.87-1.07 2.15v0c-.9.28-1.34 1.25-1.05 2.1l.13.38c.28.84-.2 1.74-1.05 1.97L8 14" />
+          </svg>
+          Events
+        </a>
+
+        <a href="Packaging.html"
+          class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors">
+          <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z" />
+            <path d="m3.3 7 8.7 5 8.7-5" />
+            <path d="M12 22V12" />
+          </svg>
+          Packaging
+        </a>
+
+
+        <a href="Testimonials.html"
+          class="flex items-center gap-4 px-4 py-3 text-slate-600 font-medium hover:bg-slate-100 rounded-xl transition-colors mb-4">
+          <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+          Testimonials
+        </a>
+
+        <!-- Mobile CTA -->
+        <a href="contact.html"
+          class="flex items-center justify-center gap-2 w-full rounded-xl bg-[#25D366] px-6 py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-[#20BD5A] shadow-md">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+          </svg>
+          <span>Chat on WhatsApp</span>
+        </a>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- hero section -->
+  <section class="relative h-[50vh] min-h-[350px] flex items-center overflow-hidden">
+    <img src="./assets/service.webp" alt="Flower Background"
+      class="absolute inset-0 w-full h-full object-cover object-center scale-105 animate-[floatSlow_14s_ease-in-out_infinite]" />
+
+    <div class="absolute inset-0 bg-gradient-to-r from-white via-white/55 to-transparent"></div>
+    <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[#0F3A2A]/10 blur-3xl"></div>
+
+    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 py-20 lg:py-32">
+
+      <!-- Applied the entry animation class to the content container below -->
+      <div class="max-w-2xl animate-reveal">
+        <span class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wide text-[#0F3A2A] bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-sm mb-5">🎉 Transform Any Venue</span>
+      </div>
+
+      <h1 class="animate-reveal [animation-delay:120ms] font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#0a2219] leading-[1.12]">
+        Event Decoration
+      </h1>
+
+      <p class="animate-reveal [animation-delay:220ms] mt-6 text-base sm:text-lg leading-relaxed text-slate-700 max-w-xl">
+        Professional event decoration services that transform any venue into a breathtaking experience.
+      </p>
+
+
+
+      <div class="mt-12 pt-4 border-t border-slate-200/40 max-w-sm">
+        <ul class="flex items-center gap-4">
+          <li>
+            <a href="#"
+              class="block transition-all duration-300 transform hover:-translate-y-1 hover:scale-110 filter hover:brightness-95">
+              <img src="assets/social.png" class="h-8 w-8 object-contain" alt="WhatsApp" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="block transition-all duration-300 transform hover:-translate-y-1 hover:scale-110 filter hover:brightness-95">
+              <img src="assets/facebook.png" class="h-8 w-8 object-contain" alt="Facebook" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] transition-all duration-300 hover:-translate-y-1 hover:scale-110">
+              <img src="assets/icon-instagram.svg" class="object-contain" alt="Instagram" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="flex h-8 w-8 items-center justify-center rounded-full bg-[#1DA1F2] transition-all duration-300 hover:-translate-y-1 hover:scale-110">
+              <img src="assets/icon-twitter.svg" class="object-contain" alt="Twitter" />
+            </a>
+          </li>
+          <li>
+            <a href="#"
+              class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 shadow-sm transition-all duration-300 transform hover:-translate-y-1 hover:bg-pink-100 hover:text-white">
+              <img src="assets/share.png" class="h-4 w-4 opacity-75 " alt="Share" />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </section>
+
+
+  <!-- DRop down menu's -->
+  <section class="bg-[#FCFCFA] py-16">
+    <div class="max-w-7xl mx-auto px-6">
+      <div id="accordion-container" class="flex flex-col gap-4"></div>
+    </div>
+
+    <script>
+      // 1. DATA HERE
+      const menuData = [
+        {
+          id: "hajj-events",
+          title: "Hajj Events",
+          icon: "🕋",
+          description:
+            "Welcome home celebrations and Hajj completion ceremonies",
+          items: [
+            {
+              name: "Grand Hajj Welcome Setup",
+              desc: "Stage, banners, balloons, flowers & seating for 50+ guests",
+              img: "/assets/dropdown images/Hajj Celebration Basket.jpg",
+            },
+            {
+              name: "Intimate Hajj Gathering",
+              desc: "Living room decoration with flowers, lights & welcome banner",
+              img: "/assets/dropdown images/Hajj Mubarak Hamper.jpg",
+            },
+            {
+              name: "Hajj Mubarak Gate Decoration",
+              desc: "Entrance arch with flowers, lights & welcome signage",
+              img: "/assets/dropdown images/Hajj Celebration Basket.jpg",
+            },
+            {
+              name: "Hajj Dinner Event",
+              desc: "Full dinner setup with themed table decor & centerpieces",
+              img: "/assets/dropdown images/Hajj Mubarak Hamper.jpg",
+            },
+          ],
+        },
+
+        {
+          id: "umrah-events",
+          title: "Umrah Events",
+          icon: "🕌",
+          description: "Umrah welcome parties and celebration setups",
+          items: [
+            {
+              name: "Umrah Welcome Home Decor",
+              desc: "Home entrance & living room decoration with lights",
+              img: "/assets/dropdown images/Umrah Welcome Hamper.jpg",
+            },
+            {
+              name: "Umrah Celebration Party",
+              desc: "Full event setup with catering, decor & entertainment",
+              img: "/assets/dropdown images/Umrah Mubarak Bouquet.jpg",
+            },
+            {
+              name: "Umrah Mubarak Banner Setup",
+              desc: "Custom banners, balloon arch & photo booth",
+              img: "/assets/dropdown images/Umrah Welcome Hamper.jpg",
+            },
+            {
+              name: "Family Umrah Gathering",
+              desc: "Garden party setup with fairy lights & seating",
+              img: "/assets/dropdown images/Umrah Mubarak Bouquet.jpg",
+            },
+          ],
+        },
+
+        {
+          id: "wedding-events",
+          title: "Wedding Events",
+          icon: "🏠",
+          description: "Complete wedding decoration and event management",
+          items: [
+            {
+              name: "Royal Wedding Package",
+              desc: "Full venue decoration, stage, lighting & floral arrangements",
+              img: "./avon-events-images/Royal Wedding Package.jpg" ,
+            },
+            {
+              name: "Garden Wedding Setup",
+              desc: "Outdoor ceremony with arch, aisle decor & fairy lights",
+                 img: "./avon-events-images/Garden Wedding Setup.jpg" 
+,
+            },
+            {
+              name: "Intimate Wedding Decor",
+              desc: "Small venue with elegant flowers, candles & draping",
+               img: "./avon-events-images/Intimate Wedding Decor.jpg",
+            },
+            {
+              name: "Grand Ballroom Wedding",
+              desc: "Luxury ballroom setup with crystal chandeliers & florals",
+             img: "./avon-events-images/Grand Ballroom Wedding.jpg" 
+  ,
+            },
+            {
+              name: "Budget Wedding Package",
+              desc: "Beautiful decoration within budget — flowers, lights &...",
+             img: "./avon-events-images/Budget Wedding Package.jpg",
+            }
+          ],
+        },
+
+        {
+          id: "wedding-car-decoration",
+          title: "Wedding Car Decoration",
+          icon: "🚗",
+          description: "Stunning floral and ribbon car decorations",
+          items: [
+            {
+              name: "Classic Rose Car Decor",
+              desc: "Red & white roses with ribbons on bonnet & mirrors",
+              img: "./avon-events-images/Classic Rose Car Decor.jpg",
+            },
+            {
+              name: "Luxury Floral Car Wrap",
+              desc: "Full car coverage with premium flowers & greenery",
+             img: "./avon-events-images/Luxury Floral Car Wrap.jpg",
+            },
+            {
+              name: "Ribbon & Bow Car Setup",
+              desc: "Elegant ribbon work with minimal flower accents",
+              img: "./avon-events-images/Ribbon & Bow Car Setup.jpg",
+            },
+            {
+              name: "Heart-Shaped Car Decor",
+              desc: "Heart arrangement on bonnet with trailing ribbons",
+              img: "./avon-events-images/Heart-Shaped Car Decor.jpg" ,
+            }
+          ],
+        },
+
+        {
+          id: "wedding-stage-decoration",
+          title: "Wedding Stage Decoration",
+          icon: "🎭",
+          description:
+            "Breathtaking stage setups with flowers, lights, and fabric",
+          items: [
+            {
+              name: "Royal Gold Stage",
+              desc: "Gold & white theme with chandeliers, flowers & draping",
+             img: "./avon-events-images/Royal Gold Stage.jpg",
+            },
+            {
+              name: "Floral Paradise Stage",
+              desc: "Full flower wall backdrop with sofa & lighting",
+             img: "./avon-events-images/Floral Paradise Stage.jpg",
+            },
+            {
+              name: "Modern Minimalist Stage",
+              desc: "Clean lines, geometric shapes & selective florals",
+              img: "./avon-events-images/Modern Minimalist Stage.jpg",
+            },
+            {
+              name: "Garden Theme Stage",
+              desc: "Natural greenery, hanging plants & rustic elements",
+             img: "./avon-events-images/Garden Theme Stage.jpg",
+            },
+            {
+              name: "Crystal & Light Stage",
+              desc: "Crystal curtains, LED lights & mirror accents",
+             img: "./avon-events-images/Crystal & Light Stage.jpg",
+            }
+          ],
+        },
+
+        {
+          id: "wedding-room-decoration",
+          title: "Wedding Room Decoration",
+          icon: "🛏️",
+          description: "Romantic room setups for the wedding night",
+          items: [
+            {
+              name: "Rose Petal Room",
+              desc: "Bed covered in rose petals with candles & fairy lights",
+               img: "./avon-events-images/Rose Petal Room.jpg",
+            },
+            {
+              name: "Balloon & Flower Room",
+              desc: "Heart balloons, flower arrangements & LED lights",
+             img: "./avon-events-images/Balloon & Flower Room.jpg",
+            },
+            {
+              name: "Luxury Bridal Suite",
+              desc: "Premium flowers, candles, champagne setup & draping",
+              img: "./avon-events-images/Luxury Bridal Suite.jpg",
+            },
+            {
+              name: "Simple Romantic Setup",
+              desc: "Candles, few flowers, fairy lights & love notes",
+             img: "./avon-events-images/Simple Romantic Setup.jpg" ,
+            },
+          ],
+        },
+        {
+          id: "engagement-events",
+          title: "Engagement Events",
+          icon: "💎",
+          description: "Elegant engagement ceremony decorations",
+          items: [
+            {
+              name: "Ring Ceremony Setup",
+              desc: "Stage with ring display, flowers & photo backdrop",
+              img: "./avon-events-images/Ring Ceremony Setup.jpg",
+            },
+            {
+              name: "Garden Engagement Party",
+              desc: "Outdoor setup with fairy lights, flowers & seating",
+             img: "./avon-events-images/Garden Engagement Party.jpg" ,
+            },
+            {
+              name: "Intimate Engagement Decor",
+              desc: "Home decoration with balloons, flowers & banner",
+              img: "./avon-events-images/Intimate Engagement Decor.jpg" ,
+            },
+            {
+              name: "Grand Engagement Hall",
+              desc: "Full hall decoration with stage, lighting & florals",
+             img: "./avon-events-images/Grand Engagement Hall.jpg",
+            },
+          ],
+        },
+
+        {
+          id: "nikah-events",
+          title: "Nikah Events",
+          icon: "🌸",
+          description: "Beautiful Nikah ceremony setups and arrangements",
+          items: [
+            {
+              name: "Traditional Nikah Setup",
+              desc: "Elegant seating, Quran display, flowers & lighting",
+              img: "./avon-events-images/Traditional Nikah Setup.jpg",
+            },
+            {
+              name: "Mosque Nikah Decoration",
+              desc: "Subtle floral arrangements & seating for guests",
+             img: "./avon-events-images/Mosque Nikah Decoration.jpg",
+            },
+            {
+              name: "Home Nikah Ceremony",
+              desc: "Living room setup with flowers, lights & seating",
+              img: "./avon-events-images/Home Nikah Ceremony.jpg",
+            },
+            {
+              name: "Grand Nikah Hall",
+              desc: "Full venue decoration with stage & floral backdrop",
+                img: "./avon-events-images/Grand Nikah Hall.jpg",
+            }
+          ],
+        },
+
+        {
+          id: "birthday-parties",
+          title: "Birthday Parties",
+          icon: "🎂",
+          description: "Fun and themed birthday party decorations for all ages",
+          items: [
+            {
+              name: "Kids Theme Party",
+              desc: "Character-themed balloons, banner, table setup & cake...",
+             img: "./avon-events-images/Kids Theme Party.jpg",
+            },
+            {
+              name: "Adult Elegant Birthday",
+              desc: "Sophisticated decor with flowers, candles & photo wall",
+              img: "./avon-events-images/Adult Elegant Birthday.jpg",
+            },
+            {
+              name: "Surprise Birthday Setup",
+              desc: "Room filled with balloons, confetti & surprise elements",
+              img: "./avon-events-images/Surprise Birthday Setup.jpg",
+            },
+            {
+              name: "Outdoor Birthday Bash",
+              desc: "Garden party with bunting, balloons & picnic setup",
+               img: "./avon-events-images/Outdoor Birthday Bash.jpg",
+            },
+            {
+              name: "Milestone Birthday (50th/60th)",
+              desc: "Elegant gold-themed setup with photo timeline",
+              img: "./avon-events-images/Milestone Birthday (50th-60th).jpg",
+            },
+          ],
+        },
+
+        {
+          id: "school-functions",
+          title: "School Functions",
+          icon: "🏫",
+          description:
+            "Professional decoration for school events and ceremonies",
+          items: [
+            {
+              name: "Annual Day Stage Setup",
+              desc: "Stage decoration with school colors, banners & lights",
+               img: "./avon-events-images/Annual Day Stage Setup.jpg",
+            },
+            {
+              name: "Graduation Ceremony Decor",
+              desc: "Cap & gown themed setup with photo backdrop",
+              img: "./avon-events-images/Graduation Ceremony Decor.jpg",
+            },
+            {
+              name: "Sports Day Decoration",
+              desc: "Colorful bunting, flags & podium setup",
+                img: "./avon-events-images/Sports Day Decoration.jpg",
+            },
+            {
+              name: "Science Fair Setup",
+              desc: "Display boards, table arrangements & signage",
+              img: "./avon-events-images/Science Fair Setup.jpg",
+            },
+          ],
+        },
+
+        {
+          id: "hifz-quran-completion",
+          title: "Hifz-e-Quran Completion Ceremonies",
+          icon: "📖",
+          description: "Celebratory setups for Quran completion milestones",
+          items: [
+            {
+              name: "Grand Hifz Ceremony",
+              desc: "Stage with Quran display, flowers, lights & seating",
+              img: "./avon-events-images/Grand Hifz Ceremony.jpg",
+            },
+            {
+              name: "Mosque Celebration Setup",
+              desc: "Simple elegant decoration with banners & flowers",
+               img: "./avon-events-images/Mosque Celebration Setup.jpg",
+            },
+            {
+              name: "Home Hifz Party",
+              desc: "Living room decoration with balloons & congratulations...",
+              img: "./avon-events-images/Home Hifz Party.jpg",
+            },
+            {
+              name: "Outdoor Hifz Celebration",
+              desc: "Garden setup with stage, seating & refreshments area",
+              img: "./avon-events-images/Outdoor Hifz Celebration.jpg",
+            },
+          ],
+        },
+
+        {
+          id: "wedding-anniversary-celebrations",
+          title: "Wedding Anniversary Celebrations",
+          icon: "💍",
+          description: "Romantic anniversary party decorations",
+          items: [
+            {
+              name: "Silver Anniversary (25th)",
+              desc: "Silver-themed decoration with flowers & photo timeline",
+             img: "./avon-events-images/Silver Anniversary (25th).jpg",
+            },
+            {
+              name: "Golden Anniversary (50th)",
+              desc: "Gold-themed grand celebration with stage & flowers",
+              img: "./avon-events-images/Golden Anniversary (50th).jpg",
+            },
+            {
+              name: "Surprise Anniversary Room",
+              desc: "Romantic room setup with candles, petals & photos",
+               img: "./avon-events-images/Surprise Anniversary Room.jpg",
+            },
+            {
+              name: "Anniversary Dinner Setup",
+              desc: "Intimate dinner table with candles, flowers & music",
+             img: "./avon-events-images/Anniversary Dinner Setup.jpg" ,
+            },
+          ],
+        },
+
+        {
+          id: "anniversary-room-decoration",
+          title: "Anniversary Room Decoration",
+          icon: "🌹",
+          description: "Surprise room setups for anniversary celebrations",
+          items: [
+            {
+              name: "Rose Petal Surprise",
+              desc: "Bed & floor covered in rose petals with candles",
+             img: "./avon-events-images/Rose Petal Surprise.jpg",
+            },
+            {
+              name: "Balloon & Photo Room",
+              desc: "Heart balloons with photo string & fairy lights",
+               img: "./avon-events-images/Balloon & Photo Room.jpg",
+            },
+            {
+              name: "Luxury Hotel Room Setup",
+              desc: "Premium flowers, champagne, chocolates & candles",
+              img: "./avon-events-images/Luxury Hotel Room Setup.jpg",
+            },
+            {
+              name: "Simple Romantic Decor",
+              desc: "Fairy lights, few flowers & love notes around room",
+               img: "./avon-events-images/Simple Romantic Decor.jpg",
+            },
+          ],
+        },
+
+        {
+          id: "welcome-home-decorations",
+          title: "Welcome Home Decorations",
+          icon: "🏠",
+          description: "Warm and festive welcome home setups",
+          items: [
+            {
+              name: "Grand Welcome Setup",
+              desc: "Entrance arch, balloons, banner & flower path",
+             img: "./avon-events-images/Grand Welcome Setup.jpg",
+            },
+            {
+              name: "Baby Welcome Home",
+              desc: "Pastel balloons, stork display & welcome banner",
+             img: "./avon-events-images/Baby Welcome Home.jpg",
+            },
+            {
+              name: "Travel Return Welcome",
+              desc: "Themed decoration matching destination with photos",
+              img: "./avon-events-images/Travel Return Welcome.jpg",
+            },
+            {
+              name: "Simple Welcome Decor",
+              desc: "Balloons, flowers & welcome banner at entrance",
+             img: "./avon-events-images/Simple Welcome Decor.jpg",
+            },
+          ],
+        },
+        {
+          id: "farewell-events",
+          title: "Farewell Events",
+          icon: "👋",
+          description: "Memorable farewell party decorations",
+          items: [
+            {
+              name: "Office Farewell Party",
+              desc: "Desk decoration, banner, cake setup & photo wall",
+              img: "./avon-events-images/Office Farewell Party.jpg",
+            },
+            {
+              name: "School Farewell Decor",
+              desc: "Stage setup with class photos, flowers & lights",
+              img: "./avon-events-images/School Farewell Decor.jpg" ,
+            },
+            {
+              name: "Friend's Farewell Bash",
+              desc: "Fun themed party with balloons, photos & memories wall",
+             img: "./avon-events-images/Friend's Farewell Bash.jpg" ,
+            },
+            {
+              name: "Elegant Farewell Dinner",
+              desc: "Sophisticated dinner setup with flowers & candles",
+               img: "./avon-events-images/Elegant Farewell Dinner.jpg" ,
+            },
+          ],
+        },
+
+        {
+          id: "mehndi-dholki-events",
+          title: "Mehndi & Dholki Events",
+          icon: "🪘",
+          description: "Colorful and vibrant Mehndi and Dholki setups",
+          items: [
+            {
+              name: "Vibrant Mehndi Stage",
+              desc: "Colorful backdrop, marigolds, cushions & lights",
+               img: "./avon-events-images/Vibrant Mehndi Stage.jpg",
+            },
+            {
+              name: "Dholki Night Setup",
+              desc: "Floor seating, dholak display, fairy lights & flowers",
+               img: "./avon-events-images/Dholki Night Setup.jpg",
+            },
+            {
+              name: "Garden Mehndi Party",
+              desc: "Outdoor setup with colorful drapes, lights & seating",
+              img: "./avon-events-images/Garden Mehndi Party.jpg",
+            },
+            {
+              name: "Traditional Mehndi Decor",
+              desc: "Yellow & green theme with marigolds & rangoli",
+             img: "./avon-events-images/Traditional Mehndi Decor.jpg" ,
+            },
+            {
+              name: "Modern Mehndi Setup",
+              desc: "Pastel colors, neon signs, photo booth & florals",
+              img: "./avon-events-images/Modern Mehndi Setup.jpg",
+            }
+          ],
+        },
+
+        {
+          id: "independence-day-celebrations",
+          title: "Independence Day Celebrations",
+          icon: "🇵🇰",
+          description: "Patriotic themed decorations and event setups",
+          items: [
+            {
+              name: "14th August Stage Setup",
+              desc: "Green & white stage with flags, lights & banners",
+               img: "./avon-events-images/14th August Stage Setup.jpg" ,
+            },
+            {
+              name: "School Independence Day",
+              desc: "Classroom & stage decoration with patriotic theme",
+               img: "./avon-events-images/School Independence Day.jpg",
+            },
+            {
+              name: "Community Celebration",
+              desc: "Park setup with bunting, flags & performance area",
+             img: "./avon-events-images/Community Celebration.jpg",
+            },
+            {
+              name: "Office Patriotic Decor",
+              desc: "Green & white balloons, flags & desk decorations",
+             img: "./avon-events-images/Office Patriotic Decor.jpg",
+            }
+          ],
+        },
+      ];
+      // all 17 categories here!
+
+      // 2. GENERATE THE UI DYNAMICALLY
+      const container = document.getElementById("accordion-container");
+
+      const accentPalette = ["#0F3A2A", "#8A3324", "#3E7F55", "#1E4620", "#0a5c66"];
+
+      container.innerHTML = menuData
+        .map(
+          (category, idx) => {
+            const accent = accentPalette[idx % accentPalette.length];
+            return `
+            <div class="group/card bg-white border border-slate-100 rounded-[28px] shadow-[0_2px_20px_rgba(15,58,42,0.05)] hover:shadow-[0_18px_40px_rgba(15,58,42,0.12)] hover:border-[#0F3A2A]/15 transition-all duration-500 overflow-hidden mb-5">
+              <button
+                onclick="toggleAccordion('${category.id}')"
+                class="w-full flex items-center justify-between gap-4 p-5 md:p-6 text-left transition-colors relative"
+              >
+                <span class="absolute left-0 top-0 bottom-0 w-1 rounded-r-full opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" style="background:${accent};"></span>
+                <div class="flex items-center gap-4 md:gap-5 min-w-0">
+                  <div class="shrink-0 w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-2xl md:text-3xl shadow-inner transition-transform duration-500 group-hover/card:scale-105 group-hover/card:-rotate-3" style="background: linear-gradient(135deg, ${accent}18, #FFFFFF);">
+                    ${category.icon}
+                  </div>
+                  <div class="min-w-0">
+                    <h2 class="font-bold text-lg md:text-xl text-[#0F3A2A] truncate" style="font-family: 'Playfair Display', serif;">${category.title}</h2>
+                    <p class="text-sm text-slate-500 mt-1 line-clamp-1">${category.description}</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-1.5 rounded-full" style="background-color:${accent}14; color:${accent};">
+                    <span class="w-1.5 h-1.5 rounded-full" style="background-color:${accent}"></span>
+                    ${category.items.length} options
+                  </span>
+                  <span
+                    id="icon-${category.id}"
+                    class="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 transition-all duration-300 group-hover/card:border-[#0F3A2A] group-hover/card:text-[#0F3A2A]"
+                  >
+                    <svg class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <div id="content-${category.id}" class="px-5 md:px-6 pb-6 hidden transition-all duration-300">
+                <div class="pt-2 border-t border-slate-100 mb-6"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  ${category.items
+              .map(
+                (item) => `
+                    <div class="group flex flex-col bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-400" data-share-title="${item.name} - Avon Gifts" data-share-text="${item.desc}">
+                      <div class="overflow-hidden">
+                        <img src="${item.img}" alt="${item.name}" class="h-48 w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      </div>
+                      <div class="p-4 flex-1">
+                        <h3 class="text-slate-800 font-semibold text-sm">${item.name}</h3>
+                        <p class="text-xs text-slate-500 mt-1 leading-relaxed">${item.desc}</p>
+                      </div>
+                      <div class="p-4 pt-0 flex items-center justify-between gap-1">
+                        <a href="#" class="flex items-center gap-1 bg-[#25D366] text-white px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-[#20bd5a] hover:shadow-[0_6px_16px_rgba(37,211,102,0.35)] transition-all whitespace-nowrap">
+                          <span class="flex items-center justify-center shrink-0">
+                            <img src="assets/chat.png" class="h-4 w-4 brightness-0 invert" alt="Chat" />
+                          </span>
+                          Order
+                        </a>
+                        <div class="flex items-center gap-1 shrink-0">
+                          <div class="w-6 h-6 rounded-full bg-[#25D366] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                            <img src="assets/social.png" class="h-4 w-4 object-contain" />
+                          </div>
+                          <div class="w-6 h-6 rounded-full bg-[#1877F2] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                            <img src="assets/facebook.png" class="h-4 w-4 object-contain" />
+                          </div>
+                          <div class="w-6 h-6 rounded-full bg-[#1DA1F2] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                            <img src="assets/icon-twitter.svg" class="h-3.5 w-3.5 object-contain" />
+                          </div>
+                          <div class="w-6 h-6 rounded-full bg-[#E1306C] flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                            <img src="assets/icon-instagram.svg" class="h-3.5 w-3.5 object-contain" alt="Instagram" />
+                          </div>
+                          <div class="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center cursor-pointer transition-transform duration-200 hover:scale-125">
+                            <img src="assets/share.png" class="h-3.5 w-3.5 object-contain" alt="Share" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  `,
+              )
+              .join("")}
+                </div>
+              </div>
+            </div>
+          `;
+          },
+        )
+        .join("");
+
+      // 3. ACCORDION TOGGLE INTERACTION LOGIC
+      function toggleAccordion(categoryId) {
+        const targetContent = document.getElementById(`content-${categoryId}`);
+        const targetIcon = document.getElementById(`icon-${categoryId}`);
+        const isAlreadyOpen = !targetContent.classList.contains("hidden");
+
+        // Close all open content blocks
+        document
+          .querySelectorAll('[id^="content-"]')
+          .forEach((el) => el.classList.add("hidden"));
+        document
+          .querySelectorAll('[id^="icon-"]')
+          .forEach((el) => el.classList.remove("rotate-180"));
+
+        // Toggle current target if it wasn't open
+        if (!isAlreadyOpen) {
+          targetContent.classList.remove("hidden");
+          targetIcon.classList.add("rotate-180");
+        }
+      }
+    </script>
+  </section>
+
+  <!-- cta -->
+  <section class="bg-[#123C2C] py-20 px-4 text-center">
+    <div class="max-w-2xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-serif text-foreground"
+        style="font-family: &quot;Playfair Display&quot;, serif">
+        Do You Have Another Event in Mind?
+      </h2>
+
+      <p class="text-white/80 text-lg leading-7 mb-8 max-w-xl mx-auto"
+        style="font-family: &quot;DM Sans&quot;, sans-serif">
+        We can decorate any event you can imagine. Share your vision with us and let's make it happen.
+      </p>
+
+      <a href="#"
+        class="inline-flex items-center gap-2.5 bg-white text-[#0F3A2A]  px-8 py-3.5 rounded-full text-[15px] font-semibold shadow-[0_8px_20px_rgba(15,58,42,0.2)] hover:shadow-[0_10px_25px_rgba(15,58,42,0.3)] hover:-translate-y-1 transition-all duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+          </path>
+        </svg>
+        Tell Us About Your Event
+      </a>
+    </div>
+  </section>
+
+
+  <!-- Floating WhatsApp Button -->
+  <a href="https://wa.me/YOUR_PHONE_NUMBER" target="_blank" rel="noopener noreferrer"
+    class="fixed bottom-6 right-6 lg:bottom-8 lg:right-8 z-50 group">
+
+    <!-- The Green Button -->
+    <div
+      class="w-14 h-14 bg-gradient-to-br from-[#25D366] to-[#128C7E] hover:from-[#20BD5A] hover:to-[#0f7566] rounded-full flex items-center justify-center shadow-[0_10px_25px_rgba(37,211,102,0.4)] transition-all duration-300 group-hover:scale-110 wa-pulse">
+
+      <!-- WhatsApp Icon -->
+      <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+        <path
+          d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+      </svg>
+
+      <!-- The Red Notification Dot -->
+      <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-red-500 border-2 border-white rounded-full"></span>
+    </div>
+  </a>
+
+
+  <!-- footer -->
+  <footer class="bg-[#123C2C] py-20 text-white">
+    <!-- Container -->
+    <div class="container mx-auto px-6">
+      <!-- Main Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <!-- ================= Column 1 ================= -->
+        <div>
+          <!-- Logo -->
+          <div class="flex items-center gap-3">
+            <!-- Logo Icon -->
+            <div class="bg-[#3e7f5522] h-8 w-8 flex items-center justify-center rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-flower2 w-5 h-5">
+                <path
+                  d="M12 5a3 3 0 1 1 3 3m-3-3a3 3 0 1 0-3 3m3-3v1M9 8a3 3 0 1 0 3 3M9 8h1m5 0a3 3 0 1 1-3 3m3-3h-1m-2 3v-1">
+                </path>
+                <circle cx="12" cy="8" r="2"></circle>
+                <path d="M12 10v12"></path>
+                <path d="M12 22c4.2 0 7-1.667 7-5-4.2 0-7 1.667-7 5Z"></path>
+                <path d="M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z"></path>
+              </svg>
+            </div>
+
+            <!-- Logo Text -->
+            <h2 class="text-2xl font-bold font-serif">Avon</h2>
+          </div>
+
+          <!-- Description -->
+          <div class="mt-8 text-sm text-white/70">
+            <p>
+              Crafting moments of joy through fresh flowers, thoughtful gifts,
+              and unforgettable event experiences.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= Column 2 ================= -->
+        <div>
+          <!-- Heading -->
+          <h3 class="text-lg font-semibold font-serif">Services</h3>
+
+          <!-- Navigation -->
+          <ul class="mt-8 space-y-3 text-sm text-white/70">
+            <li class="hover:text-white">
+              <a href="">Fresh Flowers</a>
+            </li>
+
+            <li class="hover:text-white transition-colors">
+              <a href="">Gift Occasions</a>
+            </li>
+
+            <li class="hover:text-white transition-colors">
+              <a href="">Event Decoration</a>
+            </li>
+
+            <li class="hover:text-white transition-colors">
+              <a href="">Gift Packaging</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- ================= Column 3 ================= -->
+        <div>
+          <h3 class="font-serif text-lg font-semibold">Company</h3>
+
+          <ul class="mt-8 space-y-3 text-sm text-white/70">
+            <li class="hover:text-white transition-colors cursor-pointer"><a href="">About Us</a></li>
+            <li class="hover:text-white transition-colors cursor-pointer"><a href="">Contact</a></li>
+            <li class="hover:text-white transition-colors cursor-pointer"><a href="">FAQ</a></li>
+            <li class="hover:text-white transition-colors cursor-pointer"><a href="">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-serif text-lg font-semibold">Get in Touch</h3>
+
+          <div class="mt-8 space-y-3 text-sm text-white/70">
+            <p>info@avongifts.com</p>
+            <p>+92 300 1234567</p>
+            <p>Mon - Sat: 9AM - 9PM</p>
+          </div>
+
+          <div class="mt-10">
+            <a href=""
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-[#25D366] text-white hover:bg-[#20bd5a] transition-colors">
+              <span>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+                </svg>
+              </span>
+              <span>WhatsApp Us</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-12 pt-8 border-t border-white/15 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-white/70">
+        <div>
+          © 2024 Avon Gifts & Events. All rights reserved.
+        </div>
+
+        <div>Delivering happiness, one gift at a time.</div>
+      </div>
+    </div>
+  </footer>
+
+    <script>
+      (function () {
+        var header = document.querySelector('header');
+        if (header) {
+          window.addEventListener('scroll', function () {
+            header.classList.toggle('scrolled', window.scrollY > 16);
+          }, { passive: true });
+        }
+        var revealEls = document.querySelectorAll('.reveal, .reveal-scale, .reveal-down, .reveal-right');
+        if ('IntersectionObserver' in window && revealEls.length) {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                io.unobserve(e.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+          revealEls.forEach(function (el) { io.observe(el); });
+        } else {
+          revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+        }
+      })();
+    </script>
+
+  
+    <script>
+      (function () {
+        function ensureToast() {
+          var t = document.querySelector('.share-toast');
+          if (!t) { t = document.createElement('div'); t.className = 'share-toast'; document.body.appendChild(t); }
+          return t;
+        }
+        function showToast(msg) {
+          var t = ensureToast();
+          t.textContent = msg;
+          t.classList.add('show');
+          clearTimeout(t._hideTimer);
+          t._hideTimer = setTimeout(function () { t.classList.remove('show'); }, 2200);
+        }
+        function closeSharePop() {
+          var existing = document.querySelector('.share-pop');
+          if (existing) existing.remove();
+          document.removeEventListener('click', outsideCloseHandler, true);
+          window.removeEventListener('scroll', closeSharePop, true);
+        }
+        function outsideCloseHandler(e) {
+          var pop = document.querySelector('.share-pop');
+          if (pop && !pop.contains(e.target)) closeSharePop();
+        }
+        function buildSharePop(anchorEl, shareData) {
+          closeSharePop();
+          var pop = document.createElement('div');
+          pop.className = 'share-pop';
+          var encodedUrl = encodeURIComponent(shareData.url);
+          var encodedText = encodeURIComponent(shareData.title);
+          pop.innerHTML =
+            '<a href="https://wa.me/?text=' + encodedText + '%20' + encodedUrl + '" target="_blank" rel="noopener" title="WhatsApp" style="background:#e9f9ef;color:#25D366;">' +
+              '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.4-1.8-.2-.3 0-.4.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5-.1-.1-.6-1.5-.8-2-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.7.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.3c1.5.8 3.3 1.3 5.2 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.7 0-3.3-.5-4.7-1.3l-.3-.2-3.2.8.9-3.1-.2-.3C3.5 14.3 3 12.7 3 11 3 6.6 6.6 3 11 3s9 3.6 9 8-4.1 9-9 9z"/></svg>' +
+            '</a>' +
+            '<a href="https://www.facebook.com/sharer/sharer.php?u=' + encodedUrl + '" target="_blank" rel="noopener" title="Facebook" style="background:#eaf2ff;color:#1877F2;">' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7C18.3 21.1 22 17 22 12z"/></svg>' +
+            '</a>' +
+            '<a href="https://twitter.com/intent/tweet?text=' + encodedText + '&url=' + encodedUrl + '" target="_blank" rel="noopener" title="X / Twitter" style="background:#eaf7ff;color:#1DA1F2;">' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.6 10.6 0 0 1-2.8.8 4.9 4.9 0 0 0 2.2-2.7c-.9.6-2 1-3.1 1.2A4.9 4.9 0 0 0 11.5 6.6 13.9 13.9 0 0 1 1.6 2a4.9 4.9 0 0 0 1.5 6.5c-.8 0-1.6-.2-2.2-.6v.1c0 2.4 1.7 4.4 4 4.9-.4.1-.8.2-1.3.2-.3 0-.6 0-.9-.1.6 2 2.4 3.4 4.6 3.4A9.9 9.9 0 0 1 0 19.5 14 14 0 0 0 7.6 22c9.1 0 14.1-7.7 14.1-14.4v-.7c1-.7 1.8-1.6 2.3-2.6z"/></svg>' +
+            '</a>' +
+            '<button type="button" data-copy title="Copy link" style="background:#f1efe7;color:#0F3A2A;">' +
+              '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>' +
+            '</button>';
+          document.body.appendChild(pop);
+          var rect = anchorEl.getBoundingClientRect();
+          var popW = 216;
+          var left = rect.left + rect.width / 2 - popW / 2;
+          left = Math.max(10, Math.min(left, window.innerWidth - popW - 10));
+          var top = rect.top - 62;
+          if (top < 10) top = rect.bottom + 10;
+          pop.style.left = left + 'px';
+          pop.style.top = top + 'px';
+          requestAnimationFrame(function () { pop.classList.add('open'); });
+
+          pop.querySelector('[data-copy]').addEventListener('click', function () {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(shareData.url).then(function () {
+                showToast('Link copied!');
+                closeSharePop();
+              }).catch(function () { showToast('Could not copy link'); });
+            } else {
+              var ta = document.createElement('textarea');
+              ta.value = shareData.url;
+              document.body.appendChild(ta);
+              ta.select();
+              try { document.execCommand('copy'); showToast('Link copied!'); } catch (e) { showToast('Could not copy link'); }
+              ta.remove();
+              closeSharePop();
+            }
+          });
+
+          setTimeout(function () {
+            document.addEventListener('click', outsideCloseHandler, true);
+            window.addEventListener('scroll', closeSharePop, true);
+          }, 0);
+        }
+
+        function doShare(anchorEl, title, text, url) {
+          var shareData = {
+            title: title || document.title,
+            text: text || title || 'Check this out from Avon Gifts & Events',
+            url: url || window.location.href
+          };
+          if (navigator.share) {
+            navigator.share(shareData).catch(function () {});
+          } else {
+            buildSharePop(anchorEl, shareData);
+          }
+        }
+
+        // Public compatibility shim for any inline onclick="openNativeShare()"
+        window.openNativeShare = function (title, text, url) {
+          var el = (window.event && (window.event.currentTarget || window.event.target)) || document.body;
+          doShare(el, title, text, url);
+        };
+
+        // Global delegated handler: catches every share icon on the site automatically
+        document.addEventListener('click', function (e) {
+          var img = e.target.closest('img[alt="Share"]');
+          if (!img) return;
+          e.preventDefault();
+          e.stopPropagation();
+          var btn = img.closest('a, button, div') || img;
+          var scope = btn.closest('[data-share-title]');
+          var title = (scope && scope.getAttribute('data-share-title')) || null;
+          var text = (scope && scope.getAttribute('data-share-text')) || title;
+          doShare(btn, title, text, window.location.href);
+        }, true);
+      })();
+    </script>
+
+  </body>
+<script src="js/navbar.js"></script>
+
+</html>
